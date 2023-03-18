@@ -95,6 +95,7 @@ public class Robot extends TimedRobot {
             firstJoint.setIdleMode(CANSparkMax.IdleMode.kBrake);
             secondJoint.setIdleMode(CANSparkMax.IdleMode.kBrake);
         }).ignoringDisable(true).schedule();
+        new OpenGripper(gripper).ignoringDisable(true).schedule();
     }
 
     @Override
@@ -108,13 +109,15 @@ public class Robot extends TimedRobot {
             firstJoint.setIdleMode(CANSparkMax.IdleMode.kBrake);
             secondJoint.setIdleMode(CANSparkMax.IdleMode.kBrake);
         });
-        new CloseGripper(gripper);
-        CommandBase auto;
-//        auto = new SmashAndDash(drivetrain).getCommand();
+        new CloseGripper(gripper).schedule();
+        CommandBase auto = null;
+        auto = new SmashAndDash(drivetrain).getCommand();
 //        auto = new ClimbPlanB(drivetrain);
-        auto = new PlanBWindow(drivetrain).getCommand();
-//        auto = new PlanBEdge(drivetrain).getCommand();
-        if (auto != null & firstJoint.encoderConnected() && secondJoint.encoderConnected()) auto.schedule();
+//        auto = new PlanBWindow(drivetrain).getCommand();
+//        auto = new PlanBEdge(dr69
+//        ivetrain).getCommand();
+        if (auto != null && firstJoint.encoderConnected() && secondJoint.encoderConnected()) auto.schedule();
+        else new DriveArcade(drivetrain, 0.5, 0).withTimeout(2).schedule();
     }
 
     @Override

@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotMap;
+import frc.robot.subsystems.ArmFirstJoint;
 import frc.robot.subsystems.ArmSecondJoint;
 import frc.robot.subsystems.Gripper;
 
@@ -12,7 +13,7 @@ public class LedsService {
 
     public enum Mode {
 
-        OFF(0, 0, 0), START_CONFIGURATION(0, 0, 139), EMPTY_GRIPPER(254, 0, 0), ALLIGNED_TO_GAME_PIECE(204, 0, 254), HAS_GAME_PIECE(0, 0, 254),
+        OFF(0, 0, 0), RED(255, 0, 0), START_CONFIGURATION(0, 0, 139), EMPTY_GRIPPER(254, 0, 0), ALLIGNED_TO_GAME_PIECE(204, 0, 254), HAS_GAME_PIECE(0, 0, 254),
         HAS_GAME_PIECE_AND_ALLIGNED(0, 254, 0), CONE(255, 255, 0), CUBE(255, 0, 255);
 
         public final int red;
@@ -32,6 +33,7 @@ public class LedsService {
 
     private final RootNamespace namespace;
 
+    private final ArmFirstJoint firstJoint;
     private final ArmSecondJoint secondJoint;
     private final Gripper gripper;
 
@@ -54,6 +56,7 @@ public class LedsService {
         namespace = new RootNamespace(namespaceName);
         this.led = led;
         this.ledBuffer = ledBuffer;
+        this.firstJoint = ArmFirstJoint.getInstance();
         this.secondJoint = secondJoint;
         this.vision = vision;
         this.gripper = gripper;
@@ -64,7 +67,12 @@ public class LedsService {
     }
 
     public void periodic() {
-        setMode(mode);
+        double absolutePosition = firstJoint.getAbsolutePosition();
+        if (absolutePosition > 175 || absolutePosition < 5) {
+            setMode(Mode.RED);
+        } else {
+            setMode(mode);
+        }
 //        Mode mode;
 //        if (gripper.hasGamePiece()) {
 //            if(secondJoint.isBack()) {

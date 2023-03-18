@@ -17,16 +17,16 @@ public class PlaceGamePiece extends SequentialCommandGroup {
 
         FOLD_BELOW_180(90, 40, 0.5),
         FOLD_ABOVE_180(90, 320, 0.5),
-        FLOOR_BACK(110, 120, 0.5),
-        FLOOR_FRONT(75, 233, 0.5),
-        BACK_MID(136, 76, 0.5),
+        FLOOR_BACK(107, 114, 0.5),
+        FLOOR_FRONT(78, 248, 0.5),
+        BACK_MID(134, 76, 0.5),
         BACK_TOP(176, 147, 0.7),
-        FRONT_MID(46, 285, 0.5),
+        FRONT_MID(46, 283, 0.5),
         FRONT_TOP(8, 220, 0.7),
         BACK_LIFT(185, 270, 0.85),
         FRONT_LIFT(5, 100, 0.85),
-        FRONT_DOUBLE_SUBSTATION(4, 188, 0.7),
-        BACK_DOUBLE_SUBSTATION(176, 164, 0.7);
+        FRONT_DOUBLE_SUBSTATION(0, 188, 0.7),
+        BACK_DOUBLE_SUBSTATION(180, 172, 0.7);
 
         public final double firstJointPosition;
         public final double secondJointPosition;

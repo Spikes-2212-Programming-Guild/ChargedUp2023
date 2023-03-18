@@ -22,8 +22,12 @@ public class KeepSecondJointStable extends SequentialCommandGroup {
                 }),
                 new InstantCommand(() -> compensation.configureSecondJointG(firstJointAngle, secondJointAngle)),
                 new MoveSmartMotorControllerGenericSubsystem(secondJoint, secondJoint.keepStablePIDSettings,
-                        secondJoint.getFeedForwardSettings(), UnifiedControlMode.POSITION, () -> secondJointAngle)
-                        .alongWith(new RunCommand(() -> compensation.configureSecondJointG(firstJointAngle, secondJointAngle)))
+                        secondJoint.getFeedForwardSettings(), UnifiedControlMode.POSITION, () -> secondJointAngle) {
+                    @Override
+                    public boolean isFinished() {
+                        return false;
+                    }
+                }.alongWith(new RunCommand(() -> compensation.configureSecondJointG(firstJointAngle, secondJointAngle)))
         );
         addRequirements(secondJoint);
     }

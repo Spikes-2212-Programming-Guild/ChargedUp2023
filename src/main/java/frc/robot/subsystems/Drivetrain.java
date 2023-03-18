@@ -73,10 +73,10 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
     private final PIDSettings cameraPIDSettings;
 
     private final Namespace climbPIDNamespace = namespace.addChild("climb pid");
-    private final Supplier<Double> kP = climbPIDNamespace.addConstantDouble("kP", 0.05);
+    private final Supplier<Double> kP = climbPIDNamespace.addConstantDouble("kP", 0.018);
     private final Supplier<Double> kI = climbPIDNamespace.addConstantDouble("kI", 0);
-    private final Supplier<Double> kD = climbPIDNamespace.addConstantDouble("kD", 0.025);
-    private final Supplier<Double> tolerance = climbPIDNamespace.addConstantDouble("tolerance", 0);
+    private final Supplier<Double> kD = climbPIDNamespace.addConstantDouble("kD", 0.0028);
+    private final Supplier<Double> tolerance = climbPIDNamespace.addConstantDouble("tolerance", 5);
     private final Supplier<Double> waitTime = climbPIDNamespace.addConstantDouble("wait time", 1);
     public final PIDSettings climbPIDSettings = new PIDSettings(kP, kI, kD, tolerance, waitTime);
 
