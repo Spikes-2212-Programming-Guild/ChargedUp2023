@@ -52,12 +52,14 @@ public class VisionService {
 
     public static VisionService getInstance() {
         if (instance == null) {
-            instance = new VisionService("vision", new PhotonCamera(PHOTON_VISION_CAMERA_NAME), new Limelight(FRONT_LIMELIGHT_NAME), new Limelight(BACK_LIMELIGHT_NAME));
+            instance = new VisionService("vision", new PhotonCamera(PHOTON_VISION_CAMERA_NAME),
+                    new Limelight(FRONT_LIMELIGHT_NAME), new Limelight(BACK_LIMELIGHT_NAME));
         }
         return instance;
     }
 
-    private VisionService(String namespaceName, PhotonCamera photonCamera, Limelight frontLimelight, Limelight backLimelight) {
+    private VisionService(String namespaceName, PhotonCamera photonCamera,
+                          Limelight frontLimelight, Limelight backLimelight) {
         this.namespace = new RootNamespace(namespaceName);
         this.photonCamera = photonCamera;
         this.frontLimelight = frontLimelight;
@@ -176,7 +178,6 @@ public class VisionService {
         namespace.putNumber("photon vision yaw", this::getPhotonVisionYaw);
         namespace.putBoolean("front limelight centered", this::frontLimelightCentered);
         namespace.putBoolean("back limelight centered", this::backLimelightCentered);
-//        CameraServer.startAutomaticCapture();
         namespace.putNumber("distance from target", this::getPhotonVisionDistanceFromTarget);
     }
 }
