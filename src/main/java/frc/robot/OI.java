@@ -19,7 +19,6 @@ public class OI /*GEVALD*/ {
     private static OI instance;
 
     private final PlaystationControllerWrapper ps = new PlaystationControllerWrapper(0);
-    //    private final XboxControllerWrapper xbox = new XboxControllerWrapper(1);
     private final Joystick left = new Joystick(1);
     private final Joystick right = new Joystick(2);
     private double lastMoveValue;
@@ -69,12 +68,6 @@ public class OI /*GEVALD*/ {
                 new PlaceGamePiece(firstJoint, secondJoint, PlaceGamePiece.ArmState.BACK_TOP),
                 new PlaceGamePiece(firstJoint, secondJoint, PlaceGamePiece.ArmState.FRONT_TOP),
                 secondJoint::isBack));
-        //lifts the arm to pick up from above
-//        ps.getLeftButton().onTrue(
-//                new ConditionalCommand(
-//                        new PlaceGamePiece(firstJoint, secondJoint, PlaceGamePiece.ArmState.BACK_LIFT),
-//                        new PlaceGamePiece(firstJoint, secondJoint, PlaceGamePiece.ArmState.FRONT_LIFT),
-//                        secondJoint::isBack));
         //Moves arm to double substation
         ps.getRightButton().onTrue(new ConditionalCommand(
                 new PlaceGamePiece(firstJoint, secondJoint, PlaceGamePiece.ArmState.BACK_DOUBLE_SUBSTATION),
@@ -119,8 +112,7 @@ public class OI /*GEVALD*/ {
         new JoystickButton(right, 1).onTrue(new InstantCommand(() -> {
         }, drivetrain));
         new JoystickButton(right, 2).onTrue(new Climb(drivetrain));
-//        new JoystickButton(right, 3).onTrue(new InstantCommand(() -> drivetrain.setMode(CANSparkMax.IdleMode.kBrake)));
-//        new JoystickButton(right, 4).onTrue(new InstantCommand(() -> drivetrain.setMode(CANSparkMax.IdleMode.kCoast)));
+
         new JoystickButton(right, 3).onTrue(new CenterOnGamePiece(drivetrain, visionService, VisionService.PhotonVisionPipeline.CUBE));
         new JoystickButton(right, 4).onTrue(new CenterOnGamePiece(drivetrain, visionService, VisionService.PhotonVisionPipeline.CONE));
         new JoystickButton(left, 1).onTrue(new InstantCommand(() -> {
@@ -138,22 +130,6 @@ public class OI /*GEVALD*/ {
                             secondJoint.removeDefaultCommand();
                         }),
                         () -> (firstJoint.getDefaultCommand() == null && secondJoint.getDefaultCommand() == null)));
-
-//        xbox.getLeftStickButton().onTrue(new InstantCommand(() -> drivetrain.setMode(CANSparkMax.IdleMode.kCoast)));
-//        xbox.getRightStickButton().onTrue(new InstantCommand(() -> drivetrain.setMode(CANSparkMax.IdleMode.kBrake)));
-//        xbox.getButtonStart().onTrue(new Climb(drivetrain));
-
-//        xbox.getUpButton().onTrue(new InstantCommand(() -> {
-//        }, drivetrain));
-//        centerOnHighRRT = new CenterWithLimelight(drivetrain, VisionService.getInstance(), VisionService.LimelightPipeline.HIGH_RRT);
-//        xbox.getLeftButton().onTrue(centerOnHighRRT);
-//        xbox.getRightButton().onTrue(new CenterWithLimelight(drivetrain, VisionService.getInstance(), VisionService.LimelightPipeline.LOW_RRT));
-//        xbox.getDownButton().onTrue(new CenterWithLimelight(drivetrain, VisionService.getInstance(), VisionService.LimelightPipeline.APRIL_TAG));
-//        xbox.getLeftStickButton().onTrue(new InstantCommand(() -> {
-//        }, drivetrain));
-//        xbox.getButtonStart().onTrue(new Climb(drivetrain));
-
-
     }
 
     public static OI getInstance() {
@@ -166,25 +142,20 @@ public class OI /*GEVALD*/ {
     }
 
     public double getRightY() {
-//        double val = xbox.getRightY();
         double val = right.getY();
         double temp = lastMoveValue;
         double output = val * 0.8 + temp * 0.2;
         lastMoveValue = output;
         return output;
-//        return Math.signum(val) * val * val;
-//        return val;
+
     }
 
     public double getLeftX() {
-//        double val = xbox.getLeftX();
         double val = left.getX();
         double temp = lastRotateValue;
         double output = val * 0.6 + temp * 0.4;
         lastRotateValue = output;
         return output;
-//        return Math.signum(val) * val * val;
-//        return val;
     }
 
     public double getRightX() {
