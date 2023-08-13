@@ -4,6 +4,7 @@ import com.spikes2212.command.DashboardedSubsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import frc.robot.RobotMap;
+import frc.robot.util.BustedDigitalInput;
 
 public class Gripper extends DashboardedSubsystem {
 
