@@ -23,11 +23,11 @@ public class ArmFirstJoint extends SparkMaxGenericSubsystem {
     /**
      * Ofek said.
      */
-    public static final double GEAR_RATIO_MOTOR_TO_ABSOLUTE_ENCODER = 1 / ((60.0 / 15) * (50.0 / 14) * (48 / 14.0) * (28 / 12.0));
+    public static final double GEAR_RATIO_MOTOR_TO_ABSOLUTE_ENCODER =
+            1 / ((60.0 / 15) * (50.0 / 14) * (48 / 14.0) * (28 / 12.0));
 
     public static final int SECONDS_IN_MINUTE = 60;
 
-    private static final double ABSOLUTE_ENCODER_OFFSET = 180;
 
     private static ArmFirstJoint instance;
 
@@ -53,7 +53,8 @@ public class ArmFirstJoint extends SparkMaxGenericSubsystem {
     private final FeedForwardSettings feedForwardSettings;
 
     private final Namespace trapezoidProfileNamespace = namespace.addChild("trapezoid profile settings");
-    private final Supplier<Double> maxVelocity = trapezoidProfileNamespace.addConstantDouble("max velocity", 0);
+    private final Supplier<Double> maxVelocity =
+            trapezoidProfileNamespace.addConstantDouble("max velocity", 0);
     private final Supplier<Double> trapezoidAcceleration = trapezoidProfileNamespace.addConstantDouble
             ("acceleration", 0);
     private final TrapezoidProfileSettings trapezoidProfileSettings;
@@ -68,8 +69,10 @@ public class ArmFirstJoint extends SparkMaxGenericSubsystem {
     private final Supplier<Double> keepStableKp = keepStablePIDNamespace.addConstantDouble("kP", 0.07);
     private final Supplier<Double> keepStableKi = keepStablePIDNamespace.addConstantDouble("kI", 0);
     private final Supplier<Double> keepStableKd = keepStablePIDNamespace.addConstantDouble("kD", 0);
-    private final Supplier<Double> keepStableTolerance = keepStablePIDNamespace.addConstantDouble("tolerance", 0);
-    private final Supplier<Double> keepStableWaitTime = keepStablePIDNamespace.addConstantDouble("wait time", 99999);
+    private final Supplier<Double> keepStableTolerance =
+            keepStablePIDNamespace.addConstantDouble("tolerance", 0);
+    private final Supplier<Double> keepStableWaitTime =
+            keepStablePIDNamespace.addConstantDouble("wait time", 99999);
     public final PIDSettings keepStablePIDSettings = new PIDSettings(keepStableKp, keepStableKi, keepStableKd,
             keepStableTolerance, keepStableWaitTime);
 
@@ -121,10 +124,6 @@ public class ArmFirstJoint extends SparkMaxGenericSubsystem {
         slaves.get(0).setIdleMode(idleMode);
     }
 
-    public void setVoltage(double voltage) {
-        master.setVoltage(voltage);
-    }
-
     public double getRelativePosition() {
         return sparkMaxEncoder.getPosition();
     }
@@ -143,10 +142,6 @@ public class ArmFirstJoint extends SparkMaxGenericSubsystem {
         return absoluteEncoder.isConnected();
     }
 
-    public CANSparkMax.IdleMode getIdleMode() {
-        return master.getIdleMode();
-    }
-
     public double getVelocity() {
         return sparkMaxEncoder.getVelocity();
     }
@@ -159,16 +154,12 @@ public class ArmFirstJoint extends SparkMaxGenericSubsystem {
         return feedForwardSettings;
     }
 
-    public TrapezoidProfileSettings getTrapezoidProfileSettings() {
-        return trapezoidProfileSettings;
-    }
 
     public void configureEncoders() {
         sparkMaxEncoder.setPositionConversionFactor(DEGREES_PER_ROTATION * GEAR_RATIO_MOTOR_TO_ABSOLUTE_ENCODER);
         sparkMaxEncoder.setVelocityConversionFactor(DEGREES_PER_ROTATION
                 * GEAR_RATIO_MOTOR_TO_ABSOLUTE_ENCODER / SECONDS_IN_MINUTE);
         sparkMaxEncoder.setPosition(getAbsolutePosition());
-//        absoluteEncoder.setPositionOffset(ABSOLUTE_ENCODER_OFFSET);
     }
 
     @Override
@@ -187,6 +178,5 @@ public class ArmFirstJoint extends SparkMaxGenericSubsystem {
 
     public void setArbitraryFeedForward(double arbitraryFeedForward) {
         this.arbitraryFeedForward = arbitraryFeedForward;
-//        this.arbitraryFeedForward = 0;
     }
 }
