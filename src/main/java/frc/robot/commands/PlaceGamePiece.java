@@ -51,7 +51,8 @@ public class PlaceGamePiece extends SequentialCommandGroup {
                     new MoveSecondJoint(secondJoint, () -> ArmState.FOLD_BELOW_180.secondJointPosition, WAIT_TIME,
                             () -> state.moveDuration)
             );
-        } else if (state == ArmState.FRONT_MID || state == ArmState.FRONT_TOP || state == ArmState.FLOOR_FRONT || state == ArmState.FRONT_LIFT) {
+        } else if (state == ArmState.FRONT_MID || state == ArmState.FRONT_TOP
+                || state == ArmState.FLOOR_FRONT || state == ArmState.FRONT_LIFT) {
             addCommands(
                     new MoveSecondJoint(secondJoint, () -> ArmState.FOLD_ABOVE_180.secondJointPosition, WAIT_TIME,
                             () -> state.moveDuration)
@@ -65,7 +66,6 @@ public class PlaceGamePiece extends SequentialCommandGroup {
                         new MoveSecondJoint(secondJoint, () -> state.secondJointPosition, WAIT_TIME,
                                 () -> state.moveDuration)),
                 new InstantCommand(() -> Drivetrain.getInstance().setMode(CANSparkMax.IdleMode.kCoast))
-//                new KeepArmStable(firstJoint, secondJoint, ArmGravityCompensation.getInstance())
         );
     }
 }
