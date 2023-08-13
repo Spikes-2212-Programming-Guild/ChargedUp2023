@@ -23,7 +23,6 @@ public class SwitchSides extends SequentialCommandGroup {
         addRequirements(firstJoint, secondJoint);
         if (isBack) {
             addCommands(
-//                    new InstantCommand(() -> Drivetrain.getInstance().setMode(CANSparkMax.IdleMode.kBrake)),
                     new CloseGripper(gripper),
                     new MoveSecondJoint(secondJoint, () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.secondJointPosition,
                             WAIT_TIME, MOVE_DURATION),
@@ -33,16 +32,11 @@ public class SwitchSides extends SequentialCommandGroup {
                     ),
                     new MoveSecondJoint(secondJoint, () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.secondJointPosition,
                             WAIT_TIME, () -> 1.2),
-//                    new ParallelCommandGroup(
-//                            new MoveSecondJoint(secondJoint, () -> 325.0, WAIT_TIME, () -> 0.8),
                     new MoveFirstJoint(firstJoint, () -> 90.0, WAIT_TIME, () -> 0.8),
                     new InstantCommand(() -> Drivetrain.getInstance().setMode(CANSparkMax.IdleMode.kCoast))
-//                    ),
-//                    new KeepArmStable(firstJoint, secondJoint, ArmGravityCompensation.getInstance())
             );
         } else {
             addCommands(
-//                    new InstantCommand(() -> Drivetrain.getInstance().setMode(CANSparkMax.IdleMode.kBrake)),
                     new CloseGripper(gripper),
                     new MoveSecondJoint(secondJoint, () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.secondJointPosition,
                             WAIT_TIME, MOVE_DURATION),
@@ -50,44 +44,11 @@ public class SwitchSides extends SequentialCommandGroup {
                             new MoveFirstJoint(firstJoint, () -> 5.0, WAIT_TIME, MOVE_DURATION),
                             new KeepSecondJointStable(firstJoint, secondJoint, ArmGravityCompensation.getInstance())
                     ),
-//                    new MoveSecondJoint(secondJoint, () -> 180.0, WAIT_TIME, MOVE_DURATION),
-//                    new ParallelCommandGroup(
                     new MoveSecondJoint(secondJoint, () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.secondJointPosition,
                             WAIT_TIME, () -> 1.2),
                     new MoveFirstJoint(firstJoint, () -> 90.0, WAIT_TIME, () -> 0.8),
-//                    ),
                     new InstantCommand(() -> Drivetrain.getInstance().setMode(CANSparkMax.IdleMode.kCoast))
-//                    new KeepArmStable(firstJoint, secondJoint, ArmGravityCompensation.getInstance())
             );
         }
     }
-
-//    private SequentialCommandGroup moveArmFromBack(ArmFirstJoint firstJoint, ArmSecondJoint secondJoint, Gripper gripper) {
-//        return new SequentialCommandGroup(
-////                new InstantCommand(() -> Drivetrain.getInstance().setMode(CANSparkMax.IdleMode.kBrake)),
-//                new CloseGripper(gripper),
-//                new MoveSecondJoint(secondJoint, () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.secondJointPosition,
-//                        WAIT_TIME, MOVE_DURATION),
-//                new MoveFirstJoint(firstJoint, ()
-//                        -> 180.0, WAIT_TIME, MOVE_DURATION),
-//                new MoveSecondJoint(secondJoint, () -> 330.0, WAIT_TIME, () -> 1.2),
-//                new MoveFirstJoint(firstJoint, () -> 90.0, WAIT_TIME, () -> 0.8),
-////                new InstantCommand(() -> Drivetrain.getInstance().setMode(CANSparkMax.IdleMode.kCoast)),
-//                new KeepArmStable(firstJoint, secondJoint, ArmGravityCompensation.getInstance())
-//        );
-//    }
-//
-//    private SequentialCommandGroup moveArmFromFront(ArmFirstJoint firstJoint, ArmSecondJoint secondJoint, Gripper gripper) {
-//        return new SequentialCommandGroup(
-////                new InstantCommand(() -> Drivetrain.getInstance().setMode(CANSparkMax.IdleMode.kBrake)),
-//                new CloseGripper(gripper),
-//                new MoveSecondJoint(secondJoint, () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.secondJointPosition,
-//                        WAIT_TIME, MOVE_DURATION),
-//                new MoveFirstJoint(firstJoint, () -> -5.0, WAIT_TIME, MOVE_DURATION),
-//                new MoveSecondJoint(secondJoint, () -> 35.0, WAIT_TIME, () -> 1.2),
-//                new MoveFirstJoint(firstJoint, () -> 90.0, WAIT_TIME, () -> 0.8),
-////                new InstantCommand(() -> Drivetrain.getInstance().setMode(CANSparkMax.IdleMode.kCoast)),
-//                new KeepArmStable(firstJoint, secondJoint, ArmGravityCompensation.getInstance())
-//        );
-//    }
 }
