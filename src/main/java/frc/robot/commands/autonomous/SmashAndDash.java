@@ -30,16 +30,13 @@ public class SmashAndDash extends BasePathAuto {
 
     private static final Supplier<Double> MIN_WAIT_TIME = () -> 0.005;
     private static final Supplier<Double> MOVE_VALUE_TO_CUBE = ROOT.addConstantDouble("move value to cube", 0.5);
-    private static final Supplier<Double> ADDITIONAL_DISTANCE_TO_CUBE
-            = ROOT.addConstantDouble("additional distance to cube", 0.0);
+
     private static final Supplier<Double> POST_PUT_GP_FIRST_JOINT_TARGET = () -> 110.0;
     private static final Supplier<Double> SECOND_JOINT_TAKE_CUBE_POSITION = () -> 245.0;
     private static final Supplier<Double> SECOND_JOINT_TAKE_CUBE_MOVE_DURATION = () -> 0.2;
-    private static final Supplier<Double> DRIVE_TO_GRID_SPEED = () -> -0.5;
-    private static final double DRIVE_TO_GRID_TIMEOUT = 0.18;
+
     private static final Supplier<Double> SWITCH_SIDES_GENERAL_MOVE_DURATION = () -> 0.5;
     private static final Supplier<Double> SWITCH_SIDES_LOW_MOVE_DURATION = () -> 0.2;
-    private static final Supplier<Double> SWITCH_SIDES_1_FIRST_JOINT_TOP_POSITION = () -> 0.0;
     private static final Supplier<Double> SWITCH_SIDES_1_SECOND_JOINT_FOLD_POSITION = () -> 300.0;
     private static final Supplier<Double> SWITCH_SIDES_1_FIRST_JOINT_FLO0R_POSITION = () -> 79.0;
     private static final Supplier<Double> SWITCH_SIDES_1_SECOND_JOINT_FLO0R_POSITION = () -> 245.0;
