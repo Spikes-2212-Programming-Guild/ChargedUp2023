@@ -26,22 +26,4 @@ public class BasePathAuto extends RamseteAutoBuilder {
                 eventMap, true, drivetrain);
         this.drivetrain = drivetrain;
     }
-
-    private static SimpleMotorFeedforward getFeedForward(FeedForwardSettings feedForwardSettings) {
-        SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
-                feedForwardSettings.getkA());
-        root.putNumber("ks", feedforward.ks);
-        root.putNumber("kV", feedforward.kv);
-        root.putNumber("kA", feedforward.ka);
-        return feedforward;
-
-    }
-
-    private static PIDConstants getPID(PIDSettings pidSettings) {
-        PIDConstants pid = new PIDConstants(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
-        root.putNumber("kp", pid.kP);
-        root.putNumber("ki", pid.kI);
-        root.putNumber("kd", pid.kD);
-        return pid;
-    }
 }
