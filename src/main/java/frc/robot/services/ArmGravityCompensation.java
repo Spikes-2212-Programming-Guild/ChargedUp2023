@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 
 import static frc.robot.subsystems.ArmFirstJoint.GEAR_RATIO_MOTOR_TO_ABSOLUTE_ENCODER;
 
+//Ask Danino for further instructions
 public class ArmGravityCompensation {
 
     private static final RootNamespace rootNamespace = new RootNamespace("arm gravity compensation");
