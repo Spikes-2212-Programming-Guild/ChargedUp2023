@@ -108,7 +108,6 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
                             CANSparkMaxLowLevel.MotorType.kBrushless),
                     new CANSparkMax(RobotMap.CAN.DRIVETRAIN_RIGHT_SPARKMAX_SLAVE,
                             CANSparkMaxLowLevel.MotorType.kBrushless),
-//                    new AHRS(SerialPort.Port.kUSB),
                     new AHRS(SerialPort.Port.kMXP),
                     TRACK_WIDTH);
         }
@@ -157,8 +156,7 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
     public void periodic() {
         super.periodic();
         odometry.update(getRotation2d(), getLeftPosition(), getRightPosition());
-        field2d.setRobotPose(getPose2d()); //I think Field2d coordinate system has (0,0) at top/bottom left
-        //so we might need to do a minus here @TODO check this
+        field2d.setRobotPose(getPose2d());
     }
 
     public void resetEncoders() {
@@ -194,10 +192,6 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
                        FeedForwardSettings feedForwardSettings) {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-//        leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType(), 0,
-//                feedForwardSettings.getkS() * Math.signum(leftSetpoint));
-//        rightMaster.getPIDController().setReference(rightSetpoint, controlMode.getSparkMaxControlType(), 0,
-//                feedForwardSettings.getkS() * Math.signum(rightSetpoint));
         leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType(),
                 0, feedForwardSettings.getkS() * Math.signum(leftSetpoint)
                         + kA.get() * (leftSetpoint - prevLeftSetpoint) / 0.02);
