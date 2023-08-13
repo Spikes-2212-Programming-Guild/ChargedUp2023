@@ -52,7 +52,8 @@ public class MoveFirstJoint extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (!firstJoint.onTarget(UnifiedControlMode.POSITION, firstJoint.getPIDSettings().getTolerance(), target.get())) {
+        if (!firstJoint.onTarget(UnifiedControlMode.POSITION,
+                firstJoint.getPIDSettings().getTolerance(), target.get())) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
         return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= waitTime.get();
