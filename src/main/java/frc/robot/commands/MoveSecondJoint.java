@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
-import com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollergenericsubsystem.MoveSmartMotorControllerGenericSubsystem;
+import com.spikes2212.command.genericsubsystem.commands
+        .smartmotorcontrollergenericsubsystem.MoveSmartMotorControllerGenericSubsystem;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -52,7 +53,8 @@ public class MoveSecondJoint extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (!secondJoint.onTarget(UnifiedControlMode.POSITION, secondJoint.getPIDSettings().getTolerance(), target.get())) {
+        if (!secondJoint.onTarget(UnifiedControlMode.POSITION, secondJoint.getPIDSettings().getTolerance(),
+                target.get())) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
         return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= waitTime.get();
