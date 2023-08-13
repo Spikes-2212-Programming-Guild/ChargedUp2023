@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
-import com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollergenericsubsystem.MoveSmartMotorControllerGenericSubsystem;
+import com.spikes2212.command.genericsubsystem.commands
+        .smartmotorcontrollergenericsubsystem.MoveSmartMotorControllerGenericSubsystem;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
