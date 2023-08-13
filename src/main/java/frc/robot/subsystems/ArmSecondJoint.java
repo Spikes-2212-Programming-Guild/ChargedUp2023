@@ -46,7 +46,8 @@ public class ArmSecondJoint extends SparkMaxGenericSubsystem {
     private final FeedForwardSettings feedForwardSettings;
 
     private final Namespace trapezoidProfileNamespace = namespace.addChild("trapezoid profile settings");
-    private final Supplier<Double> maxVelocity = trapezoidProfileNamespace.addConstantDouble("max velocity", 0);
+    private final Supplier<Double> maxVelocity =
+            trapezoidProfileNamespace.addConstantDouble("max velocity", 0);
     private final Supplier<Double> trapezoidAcceleration = trapezoidProfileNamespace.addConstantDouble
             ("acceleration", 0);
     private final TrapezoidProfileSettings trapezoidProfileSettings;
@@ -55,8 +56,10 @@ public class ArmSecondJoint extends SparkMaxGenericSubsystem {
     private final Supplier<Double> keepStableKp = keepStablePIDNamespace.addConstantDouble("kP", 0.1);
     private final Supplier<Double> keepStableKi = keepStablePIDNamespace.addConstantDouble("kI", 0);
     private final Supplier<Double> keepStableKd = keepStablePIDNamespace.addConstantDouble("kD", 0);
-    private final Supplier<Double> keepStableTolerance = keepStablePIDNamespace.addConstantDouble("tolerance", 0);
-    private final Supplier<Double> keepStableWaitTime = keepStablePIDNamespace.addConstantDouble("wait time", 99999);
+    private final Supplier<Double> keepStableTolerance =
+            keepStablePIDNamespace.addConstantDouble("tolerance", 0);
+    private final Supplier<Double> keepStableWaitTime =
+            keepStablePIDNamespace.addConstantDouble("wait time", 99999);
     public final PIDSettings keepStablePIDSettings = new PIDSettings(keepStableKp,
             keepStableKi, keepStableKd, keepStableTolerance, keepStableWaitTime);
 
@@ -135,10 +138,6 @@ public class ArmSecondJoint extends SparkMaxGenericSubsystem {
         return absoluteEncoder.isConnected();
     }
 
-    public CANSparkMax.IdleMode getIdleMode() {
-        return master.getIdleMode();
-    }
-
     public double getVelocity() {
         return sparkMaxEncoder.getVelocity();
     }
@@ -149,10 +148,6 @@ public class ArmSecondJoint extends SparkMaxGenericSubsystem {
 
     public FeedForwardSettings getFeedForwardSettings() {
         return feedForwardSettings;
-    }
-
-    public TrapezoidProfileSettings getTrapezoidProfileSettings() {
-        return trapezoidProfileSettings;
     }
 
     public void configureEncoders() {
@@ -176,6 +171,5 @@ public class ArmSecondJoint extends SparkMaxGenericSubsystem {
 
     public void setArbitraryFeedForward(double arbitraryFeedForward) {
         this.arbitraryFeedForward = arbitraryFeedForward;
-//        this.arbitraryFeedForward = 0;
     }
 }
