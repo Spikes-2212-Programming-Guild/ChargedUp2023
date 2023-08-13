@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
-import com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollergenericsubsystem.MoveSmartMotorControllerGenericSubsystem;
+import com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollergenericsubsystem
+        .MoveSmartMotorControllerGenericSubsystem;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -14,7 +15,8 @@ public class KeepFirstJointStable extends SequentialCommandGroup {
     double firstJointAngle;
     double secondJointAngle;
 
-    public KeepFirstJointStable(ArmFirstJoint firstJoint, ArmSecondJoint secondJoint, ArmGravityCompensation compensation) {
+    public KeepFirstJointStable(ArmFirstJoint firstJoint, ArmSecondJoint secondJoint,
+                                ArmGravityCompensation compensation) {
         addCommands(
                 new InstantCommand(() -> {
                     firstJointAngle = firstJoint.getAbsolutePosition();
@@ -23,7 +25,8 @@ public class KeepFirstJointStable extends SequentialCommandGroup {
                 new InstantCommand(() -> compensation.configureFirstJointG(firstJointAngle, secondJointAngle)),
                 new MoveSmartMotorControllerGenericSubsystem(firstJoint, firstJoint.keepStablePIDSettings,
                         firstJoint.getFeedForwardSettings(), UnifiedControlMode.POSITION, () -> firstJointAngle)
-                        .alongWith(new RunCommand(() -> compensation.configureFirstJointG(firstJointAngle, secondJointAngle)))
+                        .alongWith(new RunCommand(() ->
+                                compensation.configureFirstJointG(firstJointAngle, secondJointAngle)))
         );
         addRequirements(firstJoint);
     }
