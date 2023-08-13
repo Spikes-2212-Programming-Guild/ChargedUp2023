@@ -107,10 +107,6 @@ public class ArmSecondJoint extends SparkMaxGenericSubsystem {
                 arbitraryFeedForward, SparkMaxPIDController.ArbFFUnits.kVoltage);
     }
 
-    public void setVoltage(double voltage) {
-        master.setVoltage(voltage);
-    }
-
     public void setIdleMode(CANSparkMax.IdleMode idleMode) {
         master.setIdleMode(idleMode);
     }
