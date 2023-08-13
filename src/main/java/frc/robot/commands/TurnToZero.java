@@ -7,9 +7,6 @@ import frc.robot.subsystems.Drivetrain;
 
 public class TurnToZero extends DriveArcadeWithPID {
 
-//    private final VisionService vision;
-//    private final LimelightPipeline pipeline;
-
     public TurnToZero(Drivetrain drivetrain) {
         super(drivetrain, drivetrain::getYaw, 180, 0, drivetrain.getCameraPIDSettings(),
                 drivetrain.getFeedForwardSettings());
