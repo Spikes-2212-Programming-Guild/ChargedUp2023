@@ -26,19 +26,24 @@ public class Climb extends SequentialCommandGroup {
                         () -> Math.abs(drivetrain.getPitch()) >= PITCH_BENCHMARK.get(),
                         drivetrain
                 ),
-                new DriveTankWithPID(drivetrain, drivetrain.climbPIDSettings, drivetrain.climbPIDSettings, 0, 0,
-                        drivetrain::getPitch, drivetrain::getPitch){
+                new DriveTankWithPID(
+                        drivetrain, drivetrain.climbPIDSettings, drivetrain.climbPIDSettings, 0, 0,
+                        drivetrain::getPitch, drivetrain::getPitch) {
                     @Override
                     public void execute() {
                         leftPIDController.setSetpoint(leftSetpoint.get());
                         rightPIDController.setSetpoint(rightSetpoint.get());
                         leftPIDController.setTolerance(leftPIDSettings.getTolerance());
                         rightPIDController.setTolerance(rightPIDSettings.getTolerance());
-                        leftPIDController.setPID(leftPIDSettings.getkP(), leftPIDSettings.getkI(), leftPIDSettings.getkD());
-                        rightPIDController.setPID(rightPIDSettings.getkP(), rightPIDSettings.getkI(), rightPIDSettings.getkD());
-                        leftFeedForwardController.setGains(leftFeedForwardSettings.getkS(), leftFeedForwardSettings.getkV(),
+                        leftPIDController.setPID(
+                                leftPIDSettings.getkP(), leftPIDSettings.getkI(), leftPIDSettings.getkD());
+                        rightPIDController.setPID(
+                                rightPIDSettings.getkP(), rightPIDSettings.getkI(), rightPIDSettings.getkD());
+                        leftFeedForwardController.setGains(
+                                leftFeedForwardSettings.getkS(), leftFeedForwardSettings.getkV(),
                                 leftFeedForwardSettings.getkA(), leftFeedForwardSettings.getkG());
-                        rightFeedForwardController.setGains(rightFeedForwardSettings.getkS(), rightFeedForwardSettings.getkV(),
+                        rightFeedForwardController.setGains(
+                                rightFeedForwardSettings.getkS(), rightFeedForwardSettings.getkV(),
                                 rightFeedForwardSettings.getkA(), rightFeedForwardSettings.getkG());
                         double left = (leftPIDController.calculate(leftSource.get()) +
                                 leftFeedForwardController.calculate(leftSetpoint.get()) / 2);
