@@ -24,8 +24,6 @@ public class CenterOnGamePiece extends DriveArcadeWithPID {
     @Override
     public void initialize() {
         vision.setPhotonVisionPipeline(pipeline);
-        //            source = vision::getPhotonVisionYaw;
-        //            source = () -> -vision.getPhotonVisionYaw();
         multiplier = secondJoint.isBack() ? 1 : -1;
         feedForwardSettings.setkG(() -> (((Drivetrain) drivetrain).limelightkS.get() /
                 RobotController.getBatteryVoltage()) * multiplier * Math.signum(vision.getPhotonVisionYaw()));
