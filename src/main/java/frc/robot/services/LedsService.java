@@ -13,7 +13,9 @@ public class LedsService {
 
     public enum Mode {
 
-        OFF(0, 0, 0), WHITE(255, 255, 255), RED(255, 0, 0), GREEN(0, 255, 0), START_CONFIGURATION(0, 0, 139), CONE(255, 255, 0), CUBE(255, 0, 255);
+        OFF(0, 0, 0), WHITE(255, 255, 255), RED(255, 0, 0),
+        GREEN(0, 255, 0), START_CONFIGURATION(0, 0, 139),
+        CONE(255, 255, 0), CUBE(255, 0, 255);
 
         public final int red;
         public final int green;
