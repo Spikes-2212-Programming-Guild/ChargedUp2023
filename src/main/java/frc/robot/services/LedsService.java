@@ -180,6 +180,7 @@ public class LedsService {
     }
 
     private void configureDashboard() {
-        namespace.putData("switch leds mode", new InstantCommand(this::switchMode).ignoringDisable(true));
+        namespace.putData("switch leds mode",
+                new InstantCommand(this::switchMode).ignoringDisable(true));
     }
 }
