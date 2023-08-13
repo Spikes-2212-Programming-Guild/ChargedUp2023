@@ -28,7 +28,8 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
     private static final double WHEEL_DIAMETER_IN_INCHES = 6;
     private static final double GEAR_RATIO = 1 / 11.16;
     private static final double INCHES_TO_METERS = 0.0254;
-    private static final double DISTANCE_PER_ROTATION = WHEEL_DIAMETER_IN_INCHES * GEAR_RATIO * Math.PI * INCHES_TO_METERS;
+    private static final double DISTANCE_PER_ROTATION =
+            WHEEL_DIAMETER_IN_INCHES * GEAR_RATIO * Math.PI * INCHES_TO_METERS;
 
     private static final double TRACK_WIDTH = 0.57;
 
@@ -88,7 +89,8 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
     private final FeedForwardSettings feedForwardSettings;
 
     private final Namespace trapezoidProfileNamespace = namespace.addChild("trapezoid profile settings");
-    private final Supplier<Double> maxVelocity = trapezoidProfileNamespace.addConstantDouble("max velocity", 0);
+    private final Supplier<Double> maxVelocity =
+            trapezoidProfileNamespace.addConstantDouble("max velocity", 0);
     private final Supplier<Double> trapezoidAcceleration = trapezoidProfileNamespace.addConstantDouble
             ("acceleration", 0);
     private final TrapezoidProfileSettings trapezoidProfileSettings;
@@ -181,8 +183,10 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
 
 
     public void tankDriveVoltages(double leftVoltage, double rightVoltage) {
-        double leftInput = Math.signum(leftVoltage) * Math.sqrt(Math.abs(leftVoltage / RobotController.getBatteryVoltage()));
-        double rightInput = Math.signum(rightVoltage) * Math.sqrt(Math.abs(rightVoltage / RobotController.getBatteryVoltage()));
+        double leftInput = Math.signum(leftVoltage) *
+                Math.sqrt(Math.abs(leftVoltage / RobotController.getBatteryVoltage()));
+        double rightInput = Math.signum(rightVoltage) *
+                Math.sqrt(Math.abs(rightVoltage / RobotController.getBatteryVoltage()));
         tankDrive(leftInput, rightInput);
     }
 
@@ -288,9 +292,12 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
     public void configureDashboard() {
         namespace.putBoolean("navx calibrating", gyro::isCalibrating);
         namespace.putBoolean("navx connected", gyro::isConnected);
-        namespace.putData("reset encoders", new InstantCommand(this::resetEncoders).ignoringDisable(true));
-        namespace.putData("reset gyro", new InstantCommand(this::resetGyro).ignoringDisable(true));
-        namespace.putData("reset odometry", new InstantCommand(() -> resetOdometry(new Pose2d())).ignoringDisable(true));
+        namespace.putData("reset encoders",
+                new InstantCommand(this::resetEncoders).ignoringDisable(true));
+        namespace.putData("reset gyro",
+                new InstantCommand(this::resetGyro).ignoringDisable(true));
+        namespace.putData("reset odometry",
+                new InstantCommand(() -> resetOdometry(new Pose2d())).ignoringDisable(true));
         namespace.putData("field2d", field2d);
         namespace.putNumber("left position", this::getLeftPosition);
         namespace.putNumber("right position", this::getRightPosition);
