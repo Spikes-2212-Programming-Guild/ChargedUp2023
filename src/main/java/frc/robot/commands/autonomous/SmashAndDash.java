@@ -46,9 +46,10 @@ public class SmashAndDash extends BasePathAuto {
     public SmashAndDash(Drivetrain drivetrain) {
         super(drivetrain, getEventMap());
         configureDashboard(ArmFirstJoint.getInstance(), ArmSecondJoint.getInstance(), ArmGravityCompensation.getInstance());
-//        super(drivetrain, new HashMap<>());
     }
 
+    //weird testing shit
+    //@TODO figure out if it should be in master
     private void configureDashboard(ArmFirstJoint firstJoint, ArmSecondJoint secondJoint, ArmGravityCompensation compensation) {
         ROOT.putData("move with center", new CenterOnGamePiece(drivetrain, VisionService.getInstance(), VisionService.PhotonVisionPipeline.CUBE) {
             private final double maxDistance = 1.5;
@@ -82,14 +83,12 @@ public class SmashAndDash extends BasePathAuto {
         ROOT.putNumber("distance", 0);
         ROOT.putBoolean("passed max distance", false);
         ROOT.putBoolean("has game piece in auto", false);
-
     }
 
     public CommandBase getCommand() {
         List<PathPlannerTrajectory> trajectory = PathPlanner.loadPathGroup("Smash And Dash",
                 new PathConstraints(MAX_VELOCITY_TO_CUBE, MAX_ACCELERATION_TO_CUBE),
                 new PathConstraints(MAX_VELOCITY_TO_GRID, MAX_ACCELERATION_TO_GRID));
-//        System.out.println(trajectory.get(0).toString());
         return fullAuto(trajectory);
     }
 
@@ -167,12 +166,6 @@ public class SmashAndDash extends BasePathAuto {
                         new MoveSecondJoint(ArmSecondJoint.getInstance(),
                                 () -> ArmState.FOLD_BELOW_180.secondJointPosition, MIN_WAIT_TIME,
                                 () -> ArmState.FOLD_BELOW_180.moveDuration - 0.2)
-//                        new KeepSecondJointStable(firstJoint, secondJoint, compensation),
-//                        new KeepFirstJointStable(firstJoint, secondJoint, compensation),
-//                        new SequentialCommandGroup(
-//                                new DriveArcade(drivetrain, DRIVE_TO_GRID_SPEED, () -> 0.0).withTimeout(DRIVE_TO_GRID_TIMEOUT),
-//                                new OpenGripper(gripper)
-//                        )
                 )
         );
         eventMap.put("switchSides1",
