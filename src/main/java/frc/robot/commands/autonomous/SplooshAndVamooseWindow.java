@@ -31,7 +31,6 @@ public class SplooshAndVamooseWindow extends BasePathAuto {
         HashMap<String, Command> eventMap = new HashMap<>();
         eventMap.put("putGP", new SequentialCommandGroup(
                 new PrintCommand("put gp"),
-//                new CenterWithLimelight(drivetrain, VisionService.getInstance(), VisionService.LimelightPipeline.HIGH_RRT).withTimeout(1.5),
                 new PlaceGamePiece(ArmFirstJoint.getInstance(), ArmSecondJoint.getInstance(),
                         PlaceGamePiece.ArmState.BACK_TOP),
                 new OpenGripper(Gripper.getInstance()),
@@ -42,24 +41,9 @@ public class SplooshAndVamooseWindow extends BasePathAuto {
                         () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.moveDuration + 0.2)
         ));
         eventMap.put("takeGP", new SequentialCommandGroup(
-//                new PrintCommand("take gp"), new WaitCommand(3)
                 new PrintCommand("take gp"), new InstantCommand()
         ));
         eventMap.put("climb",
-//                new SequentialCommandGroup(
-//                        new DriveArcadeWithPID(drivetrain, drivetrain::getYaw, () -> 0.0, () -> 0.0,
-//                                drivetrain.getCameraPIDSettings(), drivetrain.getFeedForwardSettings()) {
-//                            @Override
-//                            public void initialize() {
-//                                feedForwardSettings.setkG(() -> (3.1 / RobotController.getBatteryVoltage()) * -((Drivetrain) drivetrain).getYaw());
-//                            }
-//
-//                            @Override
-//                            public void end(boolean interrupted) {
-//                                super.end(interrupted);
-//                                feedForwardSettings.setkG(() -> 0.0);
-//                            }
-//                        },
                 new SequentialCommandGroup(
                         new TurnToZero(drivetrain).withTimeout(1.5),
                         new Climb(drivetrain)
