@@ -201,8 +201,6 @@ public class Robot extends TimedRobot {
         namespace.putData("plan b window", new PlanBWindow(drivetrain).getCommand());
         namespace.putData("smash and dash", new SmashAndDash(drivetrain).getCommand());
         namespace.putData("climb", new Climb(drivetrain));
-        namespace.putData("move first joint with roborio",
-                new MoveFirstJointRoboRIO(firstJoint, () -> 0.0, () -> 1.0, () -> 0.1));
         Supplier<Double> MIN_WAIT_TIME = () -> 0.005;
         Supplier<Double> SWITCH_SIDES_GENERAL_MOVE_DURATION = () -> 0.5;
         Supplier<Double> SWITCH_SIDES_1_FIRST_JOINT_TOP_POSITION = () -> -10.0;
