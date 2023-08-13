@@ -4,16 +4,15 @@ import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.spikes2212.command.drivetrains.commands.DriveArcade;
-import com.spikes2212.command.drivetrains.commands.DriveTank;
 import com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollergenericsubsystem.MoveSmartMotorControllerGenericSubsystem;
 import com.spikes2212.dashboard.RootNamespace;
-import com.spikes2212.util.RepeatCommand;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.commands.*;
 import frc.robot.commands.PlaceGamePiece.ArmState;
+import frc.robot.services.ArmGravityCompensation;
+import frc.robot.services.VisionService;
 import frc.robot.subsystems.*;
-import frc.robot.services.*;
 
 import java.util.HashMap;
 import java.util.List;

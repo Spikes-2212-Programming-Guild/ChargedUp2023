@@ -4,23 +4,20 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.commands.PPRamseteCommand;
 import com.revrobotics.CANSparkMax;
 import com.spikes2212.command.drivetrains.commands.DriveArcade;
 import com.spikes2212.dashboard.AutoChooser;
 import com.spikes2212.dashboard.RootNamespace;
-import com.spikes2212.util.Limelight;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.commands.*;
-import frc.robot.commands.autonomous.*;
+import frc.robot.commands.autonomous.PlanBEdge;
+import frc.robot.commands.autonomous.PlanBWindow;
+import frc.robot.commands.autonomous.SmashAndDash;
+import frc.robot.commands.autonomous.SplooshAndVamooseWindow;
 import frc.robot.services.ArmGravityCompensation;
 import frc.robot.services.LedsService;
 import frc.robot.services.VisionService;

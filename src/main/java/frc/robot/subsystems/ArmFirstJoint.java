@@ -12,7 +12,6 @@ import com.spikes2212.control.TrapezoidProfileSettings;
 import com.spikes2212.dashboard.Namespace;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotMap;
 
 import java.util.function.Supplier;

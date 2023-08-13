@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import com.revrobotics.CANSparkMax;
-import com.spikes2212.command.genericsubsystem.commands.MoveGenericSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.Supplier;

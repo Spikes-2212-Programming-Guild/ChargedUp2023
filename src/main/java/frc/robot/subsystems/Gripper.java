@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import com.spikes2212.command.DashboardedSubsystem;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import frc.robot.RobotMap;
