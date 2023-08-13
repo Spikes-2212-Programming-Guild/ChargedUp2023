@@ -50,12 +50,14 @@ public class LedsService {
     public static LedsService getInstance() {
         if (instance == null) {
             instance = new LedsService("leds", new AddressableLED(RobotMap.PWM.LED_PORT),
-                    new AddressableLEDBuffer(NUMBER_OF_LEDS), ArmFirstJoint.getInstance(), ArmSecondJoint.getInstance(), VisionService.getInstance());
+                    new AddressableLEDBuffer(NUMBER_OF_LEDS), ArmFirstJoint.getInstance(), ArmSecondJoint.getInstance(),
+                    VisionService.getInstance());
         }
         return instance;
     }
 
-    private LedsService(String namespaceName, AddressableLED led, AddressableLEDBuffer ledBuffer, ArmFirstJoint firstJoint, ArmSecondJoint secondJoint, VisionService vision) {
+    private LedsService(String namespaceName, AddressableLED led, AddressableLEDBuffer ledBuffer,
+                        ArmFirstJoint firstJoint, ArmSecondJoint secondJoint, VisionService vision) {
         this.namespace = new RootNamespace(namespaceName);
         this.led = led;
         this.ledBuffer = ledBuffer;
@@ -92,11 +94,6 @@ public class LedsService {
                         setMode(0, ledBuffer.getLength(), mode);
                     }
                 }
-//            if (firstJointAbsolutePosition > 175 || firstJointAbsolutePosition < 5) {
-//                setMode(0, ledBuffer.getLength(), Mode.RED);
-//            } else {
-//                setMode(0, ledBuffer.getLength(), mode);
-//            }
             }
         }
     }
