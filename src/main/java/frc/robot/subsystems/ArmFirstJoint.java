@@ -142,7 +142,6 @@ public class ArmFirstJoint extends SparkMaxGenericSubsystem {
         return feedForwardSettings;
     }
 
-
     public void configureEncoders() {
         sparkMaxEncoder.setPositionConversionFactor(DEGREES_PER_ROTATION * GEAR_RATIO_MOTOR_TO_ABSOLUTE_ENCODER);
         sparkMaxEncoder.setVelocityConversionFactor(DEGREES_PER_ROTATION
