@@ -40,6 +40,10 @@ public class Robot extends TimedRobot {
     private VisionService vision;
     private LedsService leds;
     private AutoChooser autoChooser;
+
+    /**
+     * A command that sets all the motor controllers to coast.
+     */
     private WrapperCommand userCommand;
 
     @Override
@@ -178,6 +182,9 @@ public class Robot extends TimedRobot {
         secondJoint.setDefaultCommand(new KeepSecondJointStable(firstJoint, secondJoint, compensation));
     }
 
+    /**
+     * Ignore this one. I'm keeping it for nostalgic purposes.
+     */
     private void setNamespaceTestingCommands() {
         namespace.putData("center on gamepiece", new CenterOnGamePiece(drivetrain, vision, VisionService.PhotonVisionPipeline.CUBE) {
 

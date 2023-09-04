@@ -204,6 +204,7 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
                        FeedForwardSettings feedForwardSettings) {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
+        //adds an acceleration feedforward as additional voltage
         leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType(),
                 0, feedForwardSettings.getkS() * Math.signum(leftSetpoint)
                         + kA.get() * (leftSetpoint - prevLeftSetpoint) / 0.02);

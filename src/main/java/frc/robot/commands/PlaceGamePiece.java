@@ -46,12 +46,16 @@ public class PlaceGamePiece extends SequentialCommandGroup {
         addCommands(
                 new InstantCommand(() -> Drivetrain.getInstance().setMode(CANSparkMax.IdleMode.kBrake))
         );
+        //back-side states
         if (state == ArmState.BACK_MID || state == ArmState.BACK_TOP || state == ArmState.FLOOR_BACK) {
             addCommands(
                     new MoveSecondJoint(secondJoint, () -> ArmState.FOLD_BELOW_180.secondJointPosition, WAIT_TIME,
                             () -> state.moveDuration)
             );
-        } else if (state == ArmState.FRONT_MID || state == ArmState.FRONT_TOP
+        }
+
+        //front-side states
+        else if (state == ArmState.FRONT_MID || state == ArmState.FRONT_TOP
                 || state == ArmState.FLOOR_FRONT || state == ArmState.FRONT_LIFT) {
             addCommands(
                     new MoveSecondJoint(secondJoint, () -> ArmState.FOLD_ABOVE_180.secondJointPosition, WAIT_TIME,

@@ -7,19 +7,15 @@ import frc.robot.subsystems.*;
 
 import java.util.function.Supplier;
 
+/**
+ * Switches the side of the arm.
+ */
 public class SwitchSides extends SequentialCommandGroup {
 
     private static final Supplier<Double> WAIT_TIME = () -> 0.005;
     private static final Supplier<Double> MOVE_DURATION = () -> 0.8;
 
-    private final ArmFirstJoint firstJoint;
-    private final ArmSecondJoint secondJoint;
-    private final Gripper gripper;
-
     public SwitchSides(ArmFirstJoint firstJoint, ArmSecondJoint secondJoint, Gripper gripper, boolean isBack) {
-        this.firstJoint = firstJoint;
-        this.secondJoint = secondJoint;
-        this.gripper = gripper;
         addRequirements(firstJoint, secondJoint);
         if (isBack) {
             addCommands(
