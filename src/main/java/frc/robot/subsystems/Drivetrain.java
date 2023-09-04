@@ -37,13 +37,6 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
 
     private static final int SECONDS_IN_MINUTE = 60;
 
-    private static Drivetrain instance;
-
-    private final RelativeEncoder leftEncoder;
-    private final RelativeEncoder rightEncoder;
-
-    private final AHRS gyro;
-
     private final DifferentialDriveOdometry odometry;
     private final DifferentialDriveKinematics kinematics;
     private final RamseteController ramseteController;
@@ -97,6 +90,12 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
 
     private double prevLeftSetpoint = 0;
     private double prevRightSetpoint = 0;
+
+    private final RelativeEncoder leftEncoder;
+    private final RelativeEncoder rightEncoder;
+    private final AHRS gyro;
+
+    private static Drivetrain instance;
 
     public static Drivetrain getInstance() {
         if (instance == null) {
