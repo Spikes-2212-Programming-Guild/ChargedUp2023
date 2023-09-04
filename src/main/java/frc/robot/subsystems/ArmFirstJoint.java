@@ -54,12 +54,6 @@ public class ArmFirstJoint extends SparkMaxGenericSubsystem {
     private final Supplier<Double> kG = feedForwardNamespace.addConstantDouble("kG", -1.35);
     private final FeedForwardSettings feedForwardSettings;
 
-    private final Namespace calibrations = namespace.addChild("calibrations");
-    public final Supplier<Double> lm1 = calibrations.addConstantDouble("lm1", 2.5);
-    public final Supplier<Double> l2 = calibrations.addConstantDouble("l2", 0.3);
-    public final Supplier<Double> m2 = calibrations.addConstantDouble("m2", 4);
-    public final Supplier<Double> lA = calibrations.addConstantDouble("la", 0.9);
-
     private final Namespace keepStablePIDNamespace = namespace.addChild("keep stable pid");
     private final Supplier<Double> keepStableKp = keepStablePIDNamespace.addConstantDouble("kP", 0.07);
     private final Supplier<Double> keepStableKi = keepStablePIDNamespace.addConstantDouble("kI", 0);
