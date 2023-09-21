@@ -27,10 +27,6 @@ public class RobotMap {
         int LED_PORT = 4;
     }
 
-    public interface AIN {
-
-    }
-
     public interface PCM {
 
         int GRIPPER_SOLENOID_FORWARD = 0;
