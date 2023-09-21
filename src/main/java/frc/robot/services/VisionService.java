@@ -42,13 +42,13 @@ public class VisionService {
     private static final Function<Double, Double> AREA_TO_DISTANCE_CUBE =
             area -> -76.91 * Math.log(area) + 240.96;
 
-    private static VisionService instance;
-
     private final RootNamespace namespace;
 
     private final PhotonCamera photonCamera;
     private final Limelight frontLimelight;
     private final Limelight backLimelight;
+
+    private static VisionService instance;
 
     public static VisionService getInstance() {
         if (instance == null) {
