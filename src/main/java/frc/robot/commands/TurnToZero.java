@@ -12,7 +12,6 @@ public class TurnToZero extends DriveArcadeWithPID {
                 drivetrain.getFeedForwardSettings());
     }
 
-    //@TODO figure out magic number
     @Override
     public void initialize() {
         feedForwardSettings.setkG(() -> (3.1 / RobotController.getBatteryVoltage()) * -Math.signum(((Drivetrain)drivetrain).getYaw()));

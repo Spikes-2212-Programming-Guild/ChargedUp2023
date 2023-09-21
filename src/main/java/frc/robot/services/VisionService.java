@@ -37,18 +37,18 @@ public class VisionService {
     private static final String PHOTON_VISION_CAMERA_NAME = "photonvision";
     private static final String FRONT_LIMELIGHT_NAME = "limelight-front";
     private static final String BACK_LIMELIGHT_NAME = "limelight-back";
-    private static final Function<Double, Double> AREA_TO_DISTANCE_CONE
-            = area -> -79.14 * Math.log(area) + 274.51;
-    private static final Function<Double, Double> AREA_TO_DISTANCE_CUBE
-            = area -> -76.91 * Math.log(area) + 240.96;
-
-    private static VisionService instance;
+    private static final Function<Double, Double> AREA_TO_DISTANCE_CONE =
+            area -> -79.14 * Math.log(area) + 274.51;
+    private static final Function<Double, Double> AREA_TO_DISTANCE_CUBE =
+            area -> -76.91 * Math.log(area) + 240.96;
 
     private final RootNamespace namespace;
 
     private final PhotonCamera photonCamera;
     private final Limelight frontLimelight;
     private final Limelight backLimelight;
+
+    private static VisionService instance;
 
     public static VisionService getInstance() {
         if (instance == null) {

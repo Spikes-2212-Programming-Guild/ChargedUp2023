@@ -33,16 +33,12 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
 
     private static final double TRACK_WIDTH = 0.57;
 
+    /**
+     * Maximum current for the motors. It solved a problem, don't ask me how.
+     */
     private static final int CURRENT_LIMIT = 50;
 
     private static final int SECONDS_IN_MINUTE = 60;
-
-    private static Drivetrain instance;
-
-    private final RelativeEncoder leftEncoder;
-    private final RelativeEncoder rightEncoder;
-
-    private final AHRS gyro;
 
     private final DifferentialDriveOdometry odometry;
     private final DifferentialDriveKinematics kinematics;
@@ -65,6 +61,9 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
     private final Supplier<Double> toleranceRight = rightPIDNamespace.addConstantDouble("tolerance", 0);
     private final PIDSettings rightPIDSettings;
 
+    /**
+     * PID for turning based on Limelight / Photonvision values.
+     */
     private final Namespace cameraPIDNamespace = namespace.addChild("camera pid");
     private final Supplier<Double> kPCamera = cameraPIDNamespace.addConstantDouble("kP", 0.024);
     private final Supplier<Double> kICamera = cameraPIDNamespace.addConstantDouble("kI", 0.001);
@@ -73,6 +72,9 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
     private final Supplier<Double> toleranceCamera = cameraPIDNamespace.addConstantDouble("tolerance", 1);
     private final PIDSettings cameraPIDSettings;
 
+    /**
+     * PID for the automatic climbing sequence.
+     */
     private final Namespace climbPIDNamespace = namespace.addChild("climb pid");
     private final Supplier<Double> kP = climbPIDNamespace.addConstantDouble("kP", 0.018);
     private final Supplier<Double> kI = climbPIDNamespace.addConstantDouble("kI", 0);
@@ -97,6 +99,12 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
 
     private double prevLeftSetpoint = 0;
     private double prevRightSetpoint = 0;
+
+    private final RelativeEncoder leftEncoder;
+    private final RelativeEncoder rightEncoder;
+    private final AHRS gyro;
+
+    private static Drivetrain instance;
 
     public static Drivetrain getInstance() {
         if (instance == null) {
@@ -196,6 +204,7 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
                        FeedForwardSettings feedForwardSettings) {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
+        //adds an acceleration feedforward as additional voltage
         leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType(),
                 0, feedForwardSettings.getkS() * Math.signum(leftSetpoint)
                         + kA.get() * (leftSetpoint - prevLeftSetpoint) / 0.02);

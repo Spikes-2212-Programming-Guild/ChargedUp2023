@@ -27,6 +27,7 @@ public class ArmSecondJoint extends SparkMaxGenericSubsystem {
     private final DutyCycleEncoder absoluteEncoder;
     private final RelativeEncoder sparkMaxEncoder;
 
+    //voltage proportion (from 0 to 1) to be applied to the first joint when controlling the joint manually
     public final Supplier<Double> forwardSpeed = namespace.addConstantDouble("forward speed", 0.2);
     public final Supplier<Double> backwardsSpeed = namespace.addConstantDouble("backwards speed", -0.2);
 
@@ -44,13 +45,6 @@ public class ArmSecondJoint extends SparkMaxGenericSubsystem {
     private final Supplier<Double> kA = feedForwardNamespace.addConstantDouble("kA", 0);
     private final Supplier<Double> kG = feedForwardNamespace.addConstantDouble("kG", 0.55);
     private final FeedForwardSettings feedForwardSettings;
-
-    private final Namespace trapezoidProfileNamespace = namespace.addChild("trapezoid profile settings");
-    private final Supplier<Double> maxVelocity =
-            trapezoidProfileNamespace.addConstantDouble("max velocity", 0);
-    private final Supplier<Double> trapezoidAcceleration = trapezoidProfileNamespace.addConstantDouble
-            ("acceleration", 0);
-    private final TrapezoidProfileSettings trapezoidProfileSettings;
 
     private final Namespace keepStablePIDNamespace = namespace.addChild("keep stable pid");
     private final Supplier<Double> keepStableKp = keepStablePIDNamespace.addConstantDouble("kP", 0.1);
@@ -85,7 +79,6 @@ public class ArmSecondJoint extends SparkMaxGenericSubsystem {
         configureEncoders();
         pidSettings = new PIDSettings(kP, kI, kD, tolerance, waitTime);
         feedForwardSettings = new FeedForwardSettings(kS, kV, kA, kG);
-        trapezoidProfileSettings = new TrapezoidProfileSettings(maxVelocity, trapezoidAcceleration);
         configureDashboard();
     }
 
