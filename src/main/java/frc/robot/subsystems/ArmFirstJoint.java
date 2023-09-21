@@ -33,9 +33,7 @@ public class ArmFirstJoint extends SparkMaxGenericSubsystem {
     private final RelativeEncoder sparkMaxEncoder;
     private final DutyCycleEncoder absoluteEncoder;
 
-    /**
-     * Voltage proportion (from 0 to 1) to be applied to the first joint when controlling it manually.
-     */
+     //voltage proportion (from 0 to 1) to be applied to the first joint when controlling the joint manually
     public final Supplier<Double> forwardSpeed = namespace.addConstantDouble("forward speed", 0.175);
     public final Supplier<Double> backwardsSpeed = namespace.addConstantDouble("backwards speed", -0.175);
 
