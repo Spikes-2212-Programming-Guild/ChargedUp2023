@@ -46,13 +46,6 @@ public class ArmSecondJoint extends SparkMaxGenericSubsystem {
     private final Supplier<Double> kG = feedForwardNamespace.addConstantDouble("kG", 0.55);
     private final FeedForwardSettings feedForwardSettings;
 
-    private final Namespace trapezoidProfileNamespace = namespace.addChild("trapezoid profile settings");
-    private final Supplier<Double> maxVelocity =
-            trapezoidProfileNamespace.addConstantDouble("max velocity", 0);
-    private final Supplier<Double> trapezoidAcceleration = trapezoidProfileNamespace.addConstantDouble
-            ("acceleration", 0);
-    private final TrapezoidProfileSettings trapezoidProfileSettings;
-
     private final Namespace keepStablePIDNamespace = namespace.addChild("keep stable pid");
     private final Supplier<Double> keepStableKp = keepStablePIDNamespace.addConstantDouble("kP", 0.1);
     private final Supplier<Double> keepStableKi = keepStablePIDNamespace.addConstantDouble("kI", 0);
@@ -86,7 +79,6 @@ public class ArmSecondJoint extends SparkMaxGenericSubsystem {
         configureEncoders();
         pidSettings = new PIDSettings(kP, kI, kD, tolerance, waitTime);
         feedForwardSettings = new FeedForwardSettings(kS, kV, kA, kG);
-        trapezoidProfileSettings = new TrapezoidProfileSettings(maxVelocity, trapezoidAcceleration);
         configureDashboard();
     }
 
