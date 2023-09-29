@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 import static frc.robot.subsystems.ArmFirstJoint.GEAR_RATIO_MOTOR_TO_ABSOLUTE_ENCODER;
 
 /**
- * Adds the voltage needed to defy gravity to the two joints of the arm.
+ * Adds the voltage needed for the two joints of the arm to defy gravity.
  * Credit to Danino.
  */
 public class ArmGravityCompensation {
