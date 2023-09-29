@@ -19,6 +19,8 @@ import java.util.function.Supplier;
 public class OI /*GEVALD*/ {
 
     private static final Supplier<Double> FOLD_WAIT_TIME = () -> 0.05;
+    private static final double LAST_MOVE_VALUE_PERCENTAGE = 0.2212;
+    private static final double LAST_ROTATE_VALUE_PERCENTAGE = 0.420;
 
     private static OI instance;
 
@@ -148,7 +150,7 @@ public class OI /*GEVALD*/ {
     public double getRightY() {
         double val = right.getY();
         double temp = lastMoveValue;
-        double output = val * 0.8 + temp * 0.2;
+        double output = val * (1 - LAST_MOVE_VALUE_PERCENTAGE) + temp * LAST_MOVE_VALUE_PERCENTAGE;
         lastMoveValue = output;
         return output;
 
@@ -157,7 +159,7 @@ public class OI /*GEVALD*/ {
     public double getLeftX() {
         double val = left.getX();
         double temp = lastRotateValue;
-        double output = val * 0.6 + temp * 0.4;
+        double output = val * (1 - LAST_ROTATE_VALUE_PERCENTAGE) + temp * LAST_ROTATE_VALUE_PERCENTAGE;
         lastRotateValue = output;
         return output;
     }
@@ -165,7 +167,7 @@ public class OI /*GEVALD*/ {
     public double getRightX() {
         double val = right.getX();
         double temp = lastRotateValue;
-        double output = val * 0.6 + temp * 0.4;
+        double output = val * (1 - LAST_ROTATE_VALUE_PERCENTAGE) + temp * LAST_ROTATE_VALUE_PERCENTAGE;
         lastRotateValue = output;
         return output * output * Math.signum(output);
     }
@@ -173,7 +175,7 @@ public class OI /*GEVALD*/ {
     public double getLeftY() {
         double val = left.getY();
         double temp = lastMoveValue;
-        double output = val * 0.8 + temp * 0.2;
+        double output = val * (1 - LAST_MOVE_VALUE_PERCENTAGE) + temp * LAST_MOVE_VALUE_PERCENTAGE;
         lastMoveValue = output;
         return output * output * Math.signum(output);
     }
