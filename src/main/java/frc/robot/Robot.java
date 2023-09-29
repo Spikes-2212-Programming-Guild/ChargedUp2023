@@ -14,17 +14,9 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.commands.*;
-import frc.robot.commands.autonomous.PlanBEdge;
-import frc.robot.commands.autonomous.PlanBWindow;
-import frc.robot.commands.autonomous.SmashAndDash;
-import frc.robot.commands.autonomous.SplooshAndVamooseWindow;
-import frc.robot.services.ArmGravityCompensation;
-import frc.robot.services.LedsService;
-import frc.robot.services.VisionService;
-import frc.robot.subsystems.ArmFirstJoint;
-import frc.robot.subsystems.ArmSecondJoint;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Gripper;
+import frc.robot.commands.autonomous.*;
+import frc.robot.subsystems.*;
+import frc.robot.services.*;
 
 import java.util.function.Supplier;
 
@@ -101,7 +93,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic() {
-
     }
 
     @Override
@@ -112,7 +103,7 @@ public class Robot extends TimedRobot {
         });
         new CloseGripper(gripper).schedule();
         CommandBase auto = null;
-        auto = new SmashAndDash(drivetrain).getCommand();
+//        auto = new SmashAndDash(drivetrain).getCommand();
 //        auto = new ClimbPlanB(drivetrain);
 //        auto = new PlanBWindow(drivetrain).getCommand();
 //        auto = new PlanBEdge(drivetrain).getCommand();
@@ -122,7 +113,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousPeriodic() {
-
     }
 
     @Override
@@ -147,17 +137,14 @@ public class Robot extends TimedRobot {
 
     @Override
     public void testPeriodic() {
-
     }
 
     @Override
     public void simulationInit() {
-
     }
 
     @Override
     public void simulationPeriodic() {
-
     }
 
     private void getInstances() {

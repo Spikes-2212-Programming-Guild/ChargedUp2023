@@ -14,6 +14,7 @@ import frc.robot.subsystems.ArmSecondJoint;
 
 /**
  * A {@link Command} that keeps the arm's joints in place until they are used by another command.
+ *
  * @see ArmGravityCompensation
  */
 public class KeepArmStable extends SequentialCommandGroup {

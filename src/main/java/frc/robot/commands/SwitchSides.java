@@ -9,6 +9,7 @@ import java.util.function.Supplier;
 
 /**
  * Switches the side of the arm.
+ * DO NOT stand next to the robot while running this command.
  */
 public class SwitchSides extends SequentialCommandGroup {
 

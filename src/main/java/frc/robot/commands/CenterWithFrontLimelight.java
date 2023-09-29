@@ -8,6 +8,8 @@ import frc.robot.subsystems.Drivetrain;
 
 public class CenterWithFrontLimelight extends DriveArcadeWithPID {
 
+    private static final double CENTER_KS_PERCENT_OUTPUT = 3.1;
+
     private final VisionService vision;
     private final LimelightPipeline pipeline;
 
@@ -20,7 +22,8 @@ public class CenterWithFrontLimelight extends DriveArcadeWithPID {
 
     @Override
     public void initialize() {
-        feedForwardSettings.setkG(() -> (3.1 / RobotController.getBatteryVoltage()) * -Math.signum(vision.getFrontLimelightYaw()));
+        feedForwardSettings.setkG(() -> (CENTER_KS_PERCENT_OUTPUT / RobotController.getBatteryVoltage())
+                * -Math.signum(vision.getFrontLimelightYaw()));
         vision.setFrontLimelightPipeline(pipeline);
     }
 
