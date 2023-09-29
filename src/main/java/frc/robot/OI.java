@@ -14,7 +14,11 @@ import frc.robot.services.LedsService;
 import frc.robot.services.VisionService;
 import frc.robot.subsystems.*;
 
+import java.util.function.Supplier;
+
 public class OI /*GEVALD*/ {
+
+    private static final Supplier<Double> FOLD_WAIT_TIME = () -> 0.05;
 
     private static OI instance;
 
@@ -87,16 +91,16 @@ public class OI /*GEVALD*/ {
                         new SequentialCommandGroup(
                                 new CloseGripper(gripper),
                                 new MoveSecondJoint(secondJoint, () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.secondJointPosition,
-                                        () -> 0.05, () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.moveDuration),
+                                        FOLD_WAIT_TIME, () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.moveDuration),
                                 new MoveFirstJoint(firstJoint, () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.firstJointPosition,
-                                        () -> 0.05, () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.moveDuration
+                                        FOLD_WAIT_TIME, () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.moveDuration
                                 )),
                         new SequentialCommandGroup(
                                 new CloseGripper(gripper),
                                 new MoveSecondJoint(secondJoint, () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.secondJointPosition,
-                                        () -> 0.05, () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.moveDuration),
+                                        FOLD_WAIT_TIME, () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.moveDuration),
                                 new MoveFirstJoint(firstJoint, () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.firstJointPosition,
-                                        () -> 0.05, () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.moveDuration
+                                        FOLD_WAIT_TIME, () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.moveDuration
                                 )),
                         secondJoint::isBack)
         );
