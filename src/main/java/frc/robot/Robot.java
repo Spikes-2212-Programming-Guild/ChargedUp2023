@@ -14,17 +14,9 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.commands.*;
-import frc.robot.commands.autonomous.PlanBEdge;
-import frc.robot.commands.autonomous.PlanBWindow;
-import frc.robot.commands.autonomous.SmashAndDash;
-import frc.robot.commands.autonomous.SplooshAndVamooseWindow;
-import frc.robot.services.ArmGravityCompensation;
-import frc.robot.services.LedsService;
-import frc.robot.services.VisionService;
-import frc.robot.subsystems.ArmFirstJoint;
-import frc.robot.subsystems.ArmSecondJoint;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Gripper;
+import frc.robot.commands.autonomous.*;
+import frc.robot.subsystems.*;
+import frc.robot.services.*;
 
 import java.util.function.Supplier;
 
