@@ -12,11 +12,19 @@ import frc.robot.subsystems.Gripper;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class PlanBWindow extends BasePathAuto {
 
     private static final double MAX_VELOCITY = 0.5;
     private static final double MAX_ACCELERATION = 0.5;
+
+    private static final double DRIVE_TOWARDS_GRID_MOVE_VALUE = 0.25;
+    private static final double DRIVE_TOWARDS_GRID_ROTATE_VALUE = 0;
+    private static final Supplier<Double> MOVE_ARM_WAIT_TIME = () -> 0.005;
+    private static final Supplier<Double> MOVE_ARM_DURATION =
+            () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.moveDuration + 0.2;
+    private static final Supplier<Double> FIRST_JOINT_FINAL_POSITION = () -> 110.0;
 
     public PlanBWindow(Drivetrain drivetrain) {
         super(drivetrain, getEventMap());
@@ -32,16 +40,18 @@ public class PlanBWindow extends BasePathAuto {
         eventMap.put("putGP", new SequentialCommandGroup(
                 new PrintCommand("put gp"),
                 new ParallelRaceGroup(
-                        new DriveArcade(Drivetrain.getInstance(), 0.25, 0),
+                        new DriveArcade(Drivetrain.getInstance(),
+                                DRIVE_TOWARDS_GRID_MOVE_VALUE, DRIVE_TOWARDS_GRID_ROTATE_VALUE),
                         new PlaceGamePiece(ArmFirstJoint.getInstance(), ArmSecondJoint.getInstance(),
                                 PlaceGamePiece.ArmState.FRONT_TOP)),
                 new OpenGripper(Gripper.getInstance()),
                 new WaitCommand(1),
-                new MoveSecondJoint(ArmSecondJoint.getInstance(), () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.secondJointPosition, () -> 0.005,
-                        () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.moveDuration + 0.2),
+                new MoveSecondJoint(ArmSecondJoint.getInstance(),
+                        () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.secondJointPosition, MOVE_ARM_WAIT_TIME,
+                        MOVE_ARM_DURATION),
                 new CloseGripper(Gripper.getInstance()),
-                new MoveFirstJoint(ArmFirstJoint.getInstance(), () -> 110.0, () -> 0.005,
-                        () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.moveDuration + 0.2)
+                new MoveFirstJoint(ArmFirstJoint.getInstance(), FIRST_JOINT_FINAL_POSITION, MOVE_ARM_WAIT_TIME,
+                        MOVE_ARM_DURATION)
         ));
         eventMap.put("takeGP", new SequentialCommandGroup(
                 new PrintCommand("take gp"), new InstantCommand()
