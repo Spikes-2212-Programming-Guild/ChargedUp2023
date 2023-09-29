@@ -104,7 +104,7 @@ public class Robot extends TimedRobot {
         });
         new CloseGripper(gripper).schedule();
         CommandBase auto = null;
-        auto = new SmashAndDash(drivetrain).getCommand();
+//        auto = new SmashAndDash(drivetrain).getCommand();
 //        auto = new ClimbPlanB(drivetrain);
 //        auto = new PlanBWindow(drivetrain).getCommand();
 //        auto = new PlanBEdge(drivetrain).getCommand();
