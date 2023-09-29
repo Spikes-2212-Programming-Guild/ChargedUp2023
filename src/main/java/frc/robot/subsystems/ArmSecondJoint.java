@@ -19,6 +19,7 @@ public class ArmSecondJoint extends SparkMaxGenericSubsystem {
 
     public static final double DEGREES_PER_ROTATION = 360;
     public static final double GEAR_RATIO = (1 / 25.0) * (12 / 28.0) * (12 / 28.0);
+    private static final double ENCODER_OFFSET = 22;
 
     public static final int SECONDS_IN_MINUTE = 60;
 
@@ -110,7 +111,7 @@ public class ArmSecondJoint extends SparkMaxGenericSubsystem {
 
     public double getAbsolutePosition() {
         if (absoluteEncoder.isConnected()) {
-            return absoluteEncoder.getAbsolutePosition() * DEGREES_PER_ROTATION - 22;
+            return absoluteEncoder.getAbsolutePosition() * DEGREES_PER_ROTATION - ENCODER_OFFSET;
         }
         return getRelativePosition();
     }
