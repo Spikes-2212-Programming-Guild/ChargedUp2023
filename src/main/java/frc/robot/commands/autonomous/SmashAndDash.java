@@ -110,7 +110,6 @@ public class SmashAndDash extends BasePathAuto {
                                         new OpenGripper(gripper),
                                         new CenterOnGamePiece(
                                                 drivetrain, vision, VisionService.PhotonVisionPipeline.CUBE) {
-                                            private final double maxDistance = 1.5;
                                             private double startingPosition;
                                             private final Drivetrain drivetrain1 = ((Drivetrain) drivetrain);
 
