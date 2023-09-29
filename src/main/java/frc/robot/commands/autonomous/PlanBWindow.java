@@ -25,6 +25,7 @@ public class PlanBWindow extends BasePathAuto {
     private static final Supplier<Double> MOVE_ARM_DURATION =
             () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.moveDuration + 0.2;
     private static final Supplier<Double> FIRST_JOINT_FINAL_POSITION = () -> 110.0;
+    private static final double WAIT_TIME_AFTER_OPENING_GRIPPER = 1;
 
     public PlanBWindow(Drivetrain drivetrain) {
         super(drivetrain, getEventMap());
@@ -45,7 +46,7 @@ public class PlanBWindow extends BasePathAuto {
                         new PlaceGamePiece(ArmFirstJoint.getInstance(), ArmSecondJoint.getInstance(),
                                 PlaceGamePiece.ArmState.FRONT_TOP)),
                 new OpenGripper(Gripper.getInstance()),
-                new WaitCommand(1),
+                new WaitCommand(WAIT_TIME_AFTER_OPENING_GRIPPER),
                 new MoveSecondJoint(ArmSecondJoint.getInstance(),
                         () -> PlaceGamePiece.ArmState.FOLD_ABOVE_180.secondJointPosition, MOVE_ARM_WAIT_TIME,
                         MOVE_ARM_DURATION),
