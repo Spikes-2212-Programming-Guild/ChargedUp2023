@@ -33,11 +33,6 @@ public class Robot extends TimedRobot {
     private LedsService leds;
     private AutoChooser autoChooser;
 
-    /**
-     * A command that sets all the motor controllers to coast.
-     */
-    private WrapperCommand userCommand;
-
     @Override
     public void robotInit() {
         getInstances();
@@ -53,11 +48,6 @@ public class Robot extends TimedRobot {
         secondJoint.configureEncoders();
         vision.setBackLimelightPipeline(VisionService.LimelightPipeline.HIGH_RRT);
         vision.setFrontLimelightPipeline(VisionService.LimelightPipeline.HIGH_RRT);
-        userCommand = new InstantCommand(() -> {
-            drivetrain.setMode(CANSparkMax.IdleMode.kCoast);
-            firstJoint.setIdleMode(CANSparkMax.IdleMode.kCoast);
-            secondJoint.setIdleMode(CANSparkMax.IdleMode.kCoast);
-        }).ignoringDisable(true);
     }
 
     @Override
@@ -71,9 +61,6 @@ public class Robot extends TimedRobot {
         vision.periodic();
         leds.periodic();
         SmashAndDash.update();
-        if (RobotController.getUserButton()) {
-            userCommand.schedule();
-        }
     }
 
     @Override
