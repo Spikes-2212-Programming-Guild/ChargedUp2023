@@ -26,13 +26,11 @@ public class KeepArmStable extends SequentialCommandGroup {
 
     private double firstJointAngle;
     private double secondJointAngle;
-    private double combinedAngle;
 
     public KeepArmStable(ArmFirstJoint firstJoint, ArmSecondJoint secondJoint, ArmGravityCompensation compensation) {
         this.firstJoint = firstJoint;
         this.secondJoint = secondJoint;
         this.firstJointAngle = firstJoint.getAbsolutePosition();
-        this.combinedAngle = secondJoint.getCombinedAngle(firstJoint);
         addRequirements(firstJoint, secondJoint);
         addCommands(
                 new InstantCommand(this::setAngles),
@@ -59,7 +57,6 @@ public class KeepArmStable extends SequentialCommandGroup {
     private void setAngles() {
         firstJointAngle = firstJoint.getAbsolutePosition();
         secondJointAngle = secondJoint.getAbsolutePosition();
-        combinedAngle = secondJoint.getCombinedAngle(firstJoint);
         rootNamespace.putNumber("first joint angle", firstJointAngle);
         rootNamespace.putNumber("second joint angle", secondJointAngle);
     }
