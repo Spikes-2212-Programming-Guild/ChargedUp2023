@@ -147,8 +147,7 @@ public class OI /*GEVALD*/ {
 
     public double getRightY() {
         double val = right.getY();
-        double temp = lastMoveValue;
-        double output = val * (1 - LAST_MOVE_VALUE_PERCENTAGE) + temp * LAST_MOVE_VALUE_PERCENTAGE;
+        double output = val * (1 - LAST_MOVE_VALUE_PERCENTAGE) + lastMoveValue * LAST_MOVE_VALUE_PERCENTAGE;
         lastMoveValue = output;
         return output;
 
@@ -156,24 +155,21 @@ public class OI /*GEVALD*/ {
 
     public double getLeftX() {
         double val = left.getX();
-        double temp = lastRotateValue;
-        double output = val * (1 - LAST_ROTATE_VALUE_PERCENTAGE) + temp * LAST_ROTATE_VALUE_PERCENTAGE;
+        double output = val * (1 - LAST_ROTATE_VALUE_PERCENTAGE) + lastRotateValue * LAST_ROTATE_VALUE_PERCENTAGE;
         lastRotateValue = output;
         return output;
     }
 
     public double getRightX() {
         double val = right.getX();
-        double temp = lastRotateValue;
-        double output = val * (1 - LAST_ROTATE_VALUE_PERCENTAGE) + temp * LAST_ROTATE_VALUE_PERCENTAGE;
+        double output = val * (1 - LAST_ROTATE_VALUE_PERCENTAGE) + lastRotateValue * LAST_ROTATE_VALUE_PERCENTAGE;
         lastRotateValue = output;
         return output * output * Math.signum(output);
     }
 
     public double getLeftY() {
         double val = left.getY();
-        double temp = lastMoveValue;
-        double output = val * (1 - LAST_MOVE_VALUE_PERCENTAGE) + temp * LAST_MOVE_VALUE_PERCENTAGE;
+        double output = val * (1 - LAST_MOVE_VALUE_PERCENTAGE) + lastMoveValue * LAST_MOVE_VALUE_PERCENTAGE;
         lastMoveValue = output;
         return output * output * Math.signum(output);
     }
