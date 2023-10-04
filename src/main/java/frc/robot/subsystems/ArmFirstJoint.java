@@ -154,8 +154,6 @@ public class ArmFirstJoint extends SparkMaxGenericSubsystem {
         namespace.putNumber("absolute encoder position", this::getAbsolutePosition);
         namespace.putNumber("spark max encoder position", this::getRelativePosition);
         namespace.putNumber("velocity", this::getVelocity);
-        namespace.putData("test", new MoveSmartMotorControllerGenericSubsystem(this,
-                pidSettings, feedForwardSettings, UnifiedControlMode.VELOCITY, () -> 0.0));
         namespace.putNumber("voltage", () -> master.getBusVoltage() * master.getAppliedOutput());
         namespace.putNumber("current", master::getOutputCurrent);
         namespace.putRunnable("set position", () -> sparkMaxEncoder.setPosition(getAbsolutePosition()));
