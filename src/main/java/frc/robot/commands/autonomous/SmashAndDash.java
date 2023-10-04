@@ -123,13 +123,7 @@ public class SmashAndDash extends BasePathAuto {
                                             @Override
                                             public boolean isFinished() {
                                                 double leftPos = drivetrain1.getLeftPosition();
-                                                double distance = Math.abs(leftPos - startingPosition);
-                                                ROOT.putNumber("distance", distance);
-                                                ROOT.putBoolean("passed max distance",
-                                                        Math.abs(leftPos - startingPosition) >=
-                                                                CENTER_ON_CUBE_MAX_DISTANCE);
                                                 boolean hasGamePiece = gripper.hasGamePiece();
-                                                ROOT.putBoolean("has game piece in auto", hasGamePiece);
                                                 return hasGamePiece || Math.abs(leftPos
                                                         - startingPosition) >= CENTER_ON_CUBE_MAX_DISTANCE;
                                             }
@@ -152,7 +146,6 @@ public class SmashAndDash extends BasePathAuto {
         );
         eventMap.put("switchSides1",
                 new SequentialCommandGroup(
-                        new PrintCommand("i'm here hello"),
                         new MoveSecondJoint(secondJoint,
                                 () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.secondJointPosition, MIN_WAIT_TIME,
                                 SWITCH_SIDES_GENERAL_MOVE_DURATION),
