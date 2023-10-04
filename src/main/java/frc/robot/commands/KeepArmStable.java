@@ -36,7 +36,6 @@ public class KeepArmStable extends SequentialCommandGroup {
                 new InstantCommand(this::setAngles),
                 new InstantCommand(() -> compensation.configureFirstJointG(firstJointAngle, secondJointAngle)),
                 new InstantCommand(() -> compensation.configureSecondJointG(firstJointAngle, secondJointAngle)),
-
                 new ParallelCommandGroup(
                         new MoveSmartMotorControllerGenericSubsystem(firstJoint, firstJoint.keepStablePIDSettings,
                                 firstJoint.getFeedForwardSettings(), UnifiedControlMode.POSITION, () -> firstJointAngle)
