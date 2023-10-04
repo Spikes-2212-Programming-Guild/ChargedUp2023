@@ -86,9 +86,9 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
     public final PIDSettings climbPIDSettings = new PIDSettings(kP, kI, kD, tolerance, waitTime);
 
     private final Namespace feedForwardNamespace = namespace.addChild("feed forward");
-    private final Supplier<Double> kS = feedForwardNamespace.addConstantDouble("kS", 0.14); //0.14
-    private final Supplier<Double> kV = feedForwardNamespace.addConstantDouble("kV", 0.28); //0.28
-    private final Supplier<Double> kA = feedForwardNamespace.addConstantDouble("kA", 1/3.0);
+    private final Supplier<Double> kS = feedForwardNamespace.addConstantDouble("kS", 0.14);
+    private final Supplier<Double> kV = feedForwardNamespace.addConstantDouble("kV", 0.28);
+    private final Supplier<Double> kA = feedForwardNamespace.addConstantDouble("kA", 1 / 3.0);
     public final Supplier<Double> limelightkS = feedForwardNamespace.addConstantDouble("limelight kS", 0.14);
     private final FeedForwardSettings feedForwardSettings;
 
@@ -271,7 +271,7 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
         rightEncoder.setVelocityConversionFactor(DISTANCE_PER_ROTATION / SECONDS_IN_MINUTE);
     }
 
-    private void setCurrentLimits(){
+    private void setCurrentLimits() {
         leftMaster.setSmartCurrentLimit(CURRENT_LIMIT);
         rightMaster.setSmartCurrentLimit(CURRENT_LIMIT);
         leftSlaves.get(0).setSmartCurrentLimit(CURRENT_LIMIT);
