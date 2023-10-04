@@ -49,8 +49,6 @@ public class Climb extends SequentialCommandGroup {
                                 leftFeedForwardController.calculate(leftSetpoint.get()) / 2);
                         double right = rightPIDController.calculate(rightSource.get()) +
                                 rightFeedForwardController.calculate(rightSetpoint.get()) / 2;
-                        Climb.ROOT.putNumber("left calculate", left);
-                        Climb.ROOT.putNumber("right calculate", right);
                         drivetrain.tankDrive(-left, -right);
                     }
                 },
