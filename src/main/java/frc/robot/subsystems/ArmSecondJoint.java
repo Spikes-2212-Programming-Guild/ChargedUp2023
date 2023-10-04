@@ -24,7 +24,6 @@ public class ArmSecondJoint extends SparkMaxGenericSubsystem {
     public static final double MIN_BACK_DANGER_ZONE = 160;
     private static final double ENCODER_OFFSET = 22;
 
-
     private static ArmSecondJoint instance;
 
     private final DutyCycleEncoder absoluteEncoder;
