@@ -25,10 +25,9 @@ public class TurnToZero extends DriveArcadeWithPID {
 
         feedForwardController.setGains(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
                 feedForwardSettings.getkA(), feedForwardSettings.getkG());
-        double calculate = pidController.calculate(source.get(), setpoint.get()) +
+        double output = pidController.calculate(source.get(), setpoint.get()) +
                 feedForwardController.calculate(setpoint.get());
-        Robot.namespace.putNumber("calculate turn to zero", calculate);
-        drivetrain.arcadeDrive(moveValue.get(), -calculate);
+        drivetrain.arcadeDrive(moveValue.get(), -output);
     }
 
     @Override
