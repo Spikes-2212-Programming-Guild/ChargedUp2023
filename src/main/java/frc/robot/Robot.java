@@ -48,7 +48,6 @@ public class Robot extends TimedRobot {
                 new RootNamespace("auto chooser"),
                 new PlanBWindow(drivetrain).getCommand(), "plan b window",
                 new PlanBEdge(drivetrain).getCommand(), "plan b edge",
-                new SplooshAndVamooseWindow(drivetrain).getCommand(), "sploosh and vamoose",
                 new SmashAndDash(drivetrain).getCommand(), "smash and dash"
         );
         firstJoint.configureEncoders();
