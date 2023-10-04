@@ -41,6 +41,7 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
      */
     private static final int CURRENT_LIMIT = 50;
     private static final int SPARK_MAX_STATUS_FRAME_PERIOD = 10;
+    private static final int PID_SLOT = 0;
 
     private static final int SECONDS_IN_MINUTE = 60;
 
@@ -201,10 +202,10 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         //adds an acceleration feedforward as additional voltage
         leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType(),
-                0, feedForwardSettings.getkS() * Math.signum(leftSetpoint)
+                PID_SLOT, feedForwardSettings.getkS() * Math.signum(leftSetpoint)
                         + kA.get() * (leftSetpoint - prevLeftSetpoint) / FeedForwardController.DEFAULT_PERIOD);
         rightMaster.getPIDController().setReference(rightSetpoint, controlMode.getSparkMaxControlType(),
-                0, feedForwardSettings.getkS() * Math.signum(rightSetpoint)
+                PID_SLOT, feedForwardSettings.getkS() * Math.signum(rightSetpoint)
                         + kA.get() * (rightSetpoint - prevRightSetpoint) / FeedForwardController.DEFAULT_PERIOD);
         prevLeftSetpoint = leftSetpoint;
         prevRightSetpoint = rightSetpoint;
