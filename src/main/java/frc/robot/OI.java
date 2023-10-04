@@ -9,9 +9,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
-import frc.robot.services.ArmGravityCompensation;
-import frc.robot.services.LedsService;
-import frc.robot.services.VisionService;
+import frc.robot.services.*;
 import frc.robot.subsystems.*;
 
 import java.util.function.Supplier;
@@ -29,6 +27,15 @@ public class OI /*GEVALD*/ {
     private final Joystick right = new Joystick(2);
     private double lastMoveValue;
     private double lastRotateValue;
+
+    public static OI getInstance() {
+        if (instance == null) {
+            instance = new OI(Drivetrain.getInstance(), ArmFirstJoint.getInstance(), ArmSecondJoint.getInstance(),
+                    Gripper.getInstance(), ArmGravityCompensation.getInstance(), VisionService.getInstance(),
+                    LedsService.getInstance());
+        }
+        return instance;
+    }
 
     private OI(Drivetrain drivetrain, ArmFirstJoint firstJoint, ArmSecondJoint secondJoint, Gripper gripper,
                ArmGravityCompensation compensation, VisionService visionService, LedsService ledsService) {
@@ -136,15 +143,6 @@ public class OI /*GEVALD*/ {
                             secondJoint.removeDefaultCommand();
                         }),
                         () -> (firstJoint.getDefaultCommand() == null && secondJoint.getDefaultCommand() == null)));
-    }
-
-    public static OI getInstance() {
-        if (instance == null) {
-            instance = new OI(Drivetrain.getInstance(), ArmFirstJoint.getInstance(), ArmSecondJoint.getInstance(),
-                    Gripper.getInstance(), ArmGravityCompensation.getInstance(), VisionService.getInstance(),
-                    LedsService.getInstance());
-        }
-        return instance;
     }
 
     public double getRightY() {

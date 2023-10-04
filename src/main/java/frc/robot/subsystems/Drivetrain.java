@@ -25,6 +25,8 @@ import java.util.function.Supplier;
 
 public class Drivetrain extends SparkMaxTankDrivetrain {
 
+    public static final double TURN_KS_VOLTAGE = 3.1;
+
     private static final double WHEEL_DIAMETER_IN_INCHES = 6;
     private static final double GEAR_RATIO = 1 / 11.16;
     private static final double INCHES_TO_METERS = 0.0254;
@@ -84,18 +86,11 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
     public final PIDSettings climbPIDSettings = new PIDSettings(kP, kI, kD, tolerance, waitTime);
 
     private final Namespace feedForwardNamespace = namespace.addChild("feed forward");
-    private final Supplier<Double> kS = feedForwardNamespace.addConstantDouble("kS", 0.14); //0.14
-    private final Supplier<Double> kV = feedForwardNamespace.addConstantDouble("kV", 0.28); //0.28
-    private final Supplier<Double> kA = feedForwardNamespace.addConstantDouble("kA", 1/3.0);
+    private final Supplier<Double> kS = feedForwardNamespace.addConstantDouble("kS", 0.14);
+    private final Supplier<Double> kV = feedForwardNamespace.addConstantDouble("kV", 0.28);
+    private final Supplier<Double> kA = feedForwardNamespace.addConstantDouble("kA", 1 / 3.0);
     public final Supplier<Double> limelightkS = feedForwardNamespace.addConstantDouble("limelight kS", 0.14);
     private final FeedForwardSettings feedForwardSettings;
-
-    private final Namespace trapezoidProfileNamespace = namespace.addChild("trapezoid profile settings");
-    private final Supplier<Double> maxVelocity =
-            trapezoidProfileNamespace.addConstantDouble("max velocity", 0);
-    private final Supplier<Double> trapezoidAcceleration = trapezoidProfileNamespace.addConstantDouble
-            ("acceleration", 0);
-    private final TrapezoidProfileSettings trapezoidProfileSettings;
 
     private double prevLeftSetpoint = 0;
     private double prevRightSetpoint = 0;
@@ -139,7 +134,6 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
         leftPIDSettings = new PIDSettings(kPLeft, kILeft, kDLeft, toleranceLeft, waitTimeLeft);
         rightPIDSettings = new PIDSettings(kPRight, kIRight, kDRight, toleranceRight, waitTimeRight);
         cameraPIDSettings = new PIDSettings(kPCamera, kICamera, kDCamera, toleranceCamera, waitTimeCamera);
-        trapezoidProfileSettings = new TrapezoidProfileSettings(maxVelocity, trapezoidAcceleration);
         feedForwardSettings = new FeedForwardSettings(kS, kV, kA);
         odometry = new DifferentialDriveOdometry(getRotation2d(), getLeftPosition(), getRightPosition());
         kinematics = new DifferentialDriveKinematics(trackWidth);
@@ -203,7 +197,6 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
                        PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                        FeedForwardSettings feedForwardSettings) {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
-        configureTrapezoid(trapezoidProfileSettings);
         //adds an acceleration feedforward as additional voltage
         leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType(),
                 0, feedForwardSettings.getkS() * Math.signum(leftSetpoint)
@@ -278,7 +271,7 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
         rightEncoder.setVelocityConversionFactor(DISTANCE_PER_ROTATION / SECONDS_IN_MINUTE);
     }
 
-    private void setCurrentLimits(){
+    private void setCurrentLimits() {
         leftMaster.setSmartCurrentLimit(CURRENT_LIMIT);
         rightMaster.setSmartCurrentLimit(CURRENT_LIMIT);
         leftSlaves.get(0).setSmartCurrentLimit(CURRENT_LIMIT);

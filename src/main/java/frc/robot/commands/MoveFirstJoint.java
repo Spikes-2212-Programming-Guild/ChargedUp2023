@@ -8,6 +8,9 @@ import frc.robot.subsystems.ArmFirstJoint;
 
 import java.util.function.Supplier;
 
+/**
+ * Moves the first joint via a PID loop where the target position changes linearly over time.
+ */
 public class MoveFirstJoint extends CommandBase {
 
     private final Supplier<Double> duration;

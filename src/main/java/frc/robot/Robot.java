@@ -43,12 +43,10 @@ public class Robot extends TimedRobot {
         getInstances();
         setCompressor();
         setDefaultJointsCommands();
-        setNamespaceTestingCommands();
         autoChooser = new AutoChooser(
                 new RootNamespace("auto chooser"),
                 new PlanBWindow(drivetrain).getCommand(), "plan b window",
                 new PlanBEdge(drivetrain).getCommand(), "plan b edge",
-                new SplooshAndVamooseWindow(drivetrain).getCommand(), "sploosh and vamoose",
                 new SmashAndDash(drivetrain).getCommand(), "smash and dash"
         );
         firstJoint.configureEncoders();
@@ -167,82 +165,5 @@ public class Robot extends TimedRobot {
     private void setDefaultJointsCommands() {
         firstJoint.setDefaultCommand(new KeepFirstJointStable(firstJoint, secondJoint, compensation));
         secondJoint.setDefaultCommand(new KeepSecondJointStable(firstJoint, secondJoint, compensation));
-    }
-
-    /**
-     * Ignore this one. I'm keeping it for nostalgic purposes.
-     */
-    private void setNamespaceTestingCommands() {
-        namespace.putData("center on gamepiece", new CenterOnGamePiece(drivetrain, vision, VisionService.PhotonVisionPipeline.CUBE) {
-
-            @Override
-            public boolean isFinished() {
-                return gripper.hasGamePiece();
-            }
-        });
-        namespace.putData("move to gamepiece", new CenterOnGamePiece(drivetrain, vision, VisionService.PhotonVisionPipeline.CUBE) {
-            @Override
-            public void initialize() {
-                super.initialize();
-                moveValue = () -> 0.4;
-            }
-
-            @Override
-            public boolean isFinished() {
-                return gripper.hasGamePiece();
-            }
-        }.andThen(new CloseGripper(gripper)));
-        namespace.putData("plan b window", new PlanBWindow(drivetrain).getCommand());
-        namespace.putData("smash and dash", new SmashAndDash(drivetrain).getCommand());
-        namespace.putData("climb", new Climb(drivetrain));
-        Supplier<Double> MIN_WAIT_TIME = () -> 0.005;
-        Supplier<Double> SWITCH_SIDES_GENERAL_MOVE_DURATION = () -> 0.5;
-        Supplier<Double> SWITCH_SIDES_1_FIRST_JOINT_TOP_POSITION = () -> -10.0;
-        Supplier<Double> SWITCH_SIDES_1_SECOND_JOINT_FOLD_POSITION = () -> 300.0;
-        Supplier<Double> SWITCH_SIDES_1_FIRST_JOINT_FLO0R_POSITION = () -> 77.0;
-        Supplier<Double> SWITCH_SIDES_1_SECOND_JOINT_FLO0R_POSITION = () -> 240.0;
-        Supplier<Double> SWITCH_SIDES_LOW_MOVE_DURATION = () -> 0.2;
-        Supplier<Double> POST_PUT_GP_FIRST_JOINT_TARGET = () -> 110.0;
-        namespace.putData("switchSides1",
-                new SequentialCommandGroup(
-                        new PrintCommand("put gp"),
-                        new PlaceGamePiece(ArmFirstJoint.getInstance(), ArmSecondJoint.getInstance(),
-                                PlaceGamePiece.ArmState.BACK_TOP),
-                        new OpenGripper(Gripper.getInstance()),
-                        new MoveSecondJoint(ArmSecondJoint.getInstance(),
-                                () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.secondJointPosition, MIN_WAIT_TIME,
-                                () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.moveDuration + 0.2),
-                        new CloseGripper(Gripper.getInstance()),
-                        new MoveFirstJoint(ArmFirstJoint.getInstance(), POST_PUT_GP_FIRST_JOINT_TARGET, MIN_WAIT_TIME,
-                                () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.moveDuration + 0.2),
-                        new WaitCommand(0.2),
-                        new MoveSecondJoint(secondJoint,
-                                () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.secondJointPosition, MIN_WAIT_TIME,
-                                SWITCH_SIDES_GENERAL_MOVE_DURATION),
-                        new MoveFirstJoint(firstJoint, SWITCH_SIDES_1_FIRST_JOINT_TOP_POSITION, MIN_WAIT_TIME,
-                                SWITCH_SIDES_GENERAL_MOVE_DURATION),
-                        new MoveSecondJoint(secondJoint, SWITCH_SIDES_1_SECOND_JOINT_FOLD_POSITION, MIN_WAIT_TIME,
-                                SWITCH_SIDES_GENERAL_MOVE_DURATION),
-                        new ParallelRaceGroup(
-                                new MoveFirstJoint(firstJoint, SWITCH_SIDES_1_FIRST_JOINT_FLO0R_POSITION,
-                                        MIN_WAIT_TIME, SWITCH_SIDES_GENERAL_MOVE_DURATION),
-                                new KeepSecondJointStable(firstJoint, secondJoint, compensation)
-                        ),
-                        new MoveSecondJoint(secondJoint, SWITCH_SIDES_1_SECOND_JOINT_FLO0R_POSITION, MIN_WAIT_TIME,
-                                SWITCH_SIDES_LOW_MOVE_DURATION),
-                        new KeepSecondJointStable(firstJoint, secondJoint, compensation)
-                ));
-        namespace.putData("putGP", new SequentialCommandGroup(
-                new PrintCommand("put gp"),
-                new PlaceGamePiece(ArmFirstJoint.getInstance(), ArmSecondJoint.getInstance(),
-                        PlaceGamePiece.ArmState.BACK_TOP),
-                new OpenGripper(Gripper.getInstance()),
-                new MoveSecondJoint(ArmSecondJoint.getInstance(),
-                        () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.secondJointPosition, MIN_WAIT_TIME,
-                        () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.moveDuration + 0.2),
-                new CloseGripper(Gripper.getInstance()),
-                new MoveFirstJoint(ArmFirstJoint.getInstance(), POST_PUT_GP_FIRST_JOINT_TARGET, MIN_WAIT_TIME,
-                        () -> PlaceGamePiece.ArmState.FOLD_BELOW_180.moveDuration + 0.2)
-        ));
     }
 }

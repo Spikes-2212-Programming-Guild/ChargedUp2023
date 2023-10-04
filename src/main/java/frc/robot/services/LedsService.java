@@ -10,7 +10,6 @@ import frc.robot.subsystems.ArmFirstJoint;
 import frc.robot.subsystems.ArmSecondJoint;
 
 public class LedsService {
-
     public enum Mode {
 
         OFF(0, 0, 0), WHITE(255, 255, 255), RED(255, 0, 0),
@@ -81,13 +80,13 @@ public class LedsService {
             } else {
                 double firstJointAbsolutePosition = firstJoint.getAbsolutePosition();
                 double secondJointAbsolutePosition = secondJoint.getAbsolutePosition();
-                if (firstJointAbsolutePosition > 165) {
-                    if (secondJointAbsolutePosition < 200) {
+                if (firstJointAbsolutePosition > ArmFirstJoint.MIN_FRONT_DANGER_ZONE) {
+                    if (secondJointAbsolutePosition < ArmSecondJoint.MAX_FRONT_DANGER_ZONE) {
                         visionLed();
                     }
                 } else {
-                    if (firstJointAbsolutePosition < 15) {
-                        if (secondJointAbsolutePosition > 160) {
+                    if (firstJointAbsolutePosition < ArmFirstJoint.MAX_BACK_DANGER_ZONE) {
+                        if (secondJointAbsolutePosition > ArmSecondJoint.MIN_BACK_DANGER_ZONE) {
                             visionLed();
                         }
                     } else {
