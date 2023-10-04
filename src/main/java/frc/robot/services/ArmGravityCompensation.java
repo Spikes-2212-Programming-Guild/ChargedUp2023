@@ -48,7 +48,6 @@ public class ArmGravityCompensation {
         double torque = lm1.get() * GRAVITY * Math.cos(Math.toRadians(firstJointAngle))
                 + (l2.get() * Math.cos(Math.toRadians(firstJointAngle - secondJointAngle)) +
                 lA.get() * Math.cos(Math.toRadians(firstJointAngle))) * m2.get() * GRAVITY;
-
         double stallTorque = torque * (GEAR_RATIO_MOTOR_TO_ABSOLUTE_ENCODER);
         double voltage = stallTorque * STALL_TORQUE_TO_VOLTAGE / FIRST_JOINT_MOTORS
                 * firstJoint.getFeedForwardSettings().getkG();
