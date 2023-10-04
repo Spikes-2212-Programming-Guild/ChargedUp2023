@@ -92,13 +92,6 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
     public final Supplier<Double> limelightkS = feedForwardNamespace.addConstantDouble("limelight kS", 0.14);
     private final FeedForwardSettings feedForwardSettings;
 
-    private final Namespace trapezoidProfileNamespace = namespace.addChild("trapezoid profile settings");
-    private final Supplier<Double> maxVelocity =
-            trapezoidProfileNamespace.addConstantDouble("max velocity", 0);
-    private final Supplier<Double> trapezoidAcceleration = trapezoidProfileNamespace.addConstantDouble
-            ("acceleration", 0);
-    private final TrapezoidProfileSettings trapezoidProfileSettings;
-
     private double prevLeftSetpoint = 0;
     private double prevRightSetpoint = 0;
 
@@ -141,7 +134,6 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
         leftPIDSettings = new PIDSettings(kPLeft, kILeft, kDLeft, toleranceLeft, waitTimeLeft);
         rightPIDSettings = new PIDSettings(kPRight, kIRight, kDRight, toleranceRight, waitTimeRight);
         cameraPIDSettings = new PIDSettings(kPCamera, kICamera, kDCamera, toleranceCamera, waitTimeCamera);
-        trapezoidProfileSettings = new TrapezoidProfileSettings(maxVelocity, trapezoidAcceleration);
         feedForwardSettings = new FeedForwardSettings(kS, kV, kA);
         odometry = new DifferentialDriveOdometry(getRotation2d(), getLeftPosition(), getRightPosition());
         kinematics = new DifferentialDriveKinematics(trackWidth);
@@ -205,7 +197,6 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
                        PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                        FeedForwardSettings feedForwardSettings) {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
-        configureTrapezoid(trapezoidProfileSettings);
         //adds an acceleration feedforward as additional voltage
         leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType(),
                 0, feedForwardSettings.getkS() * Math.signum(leftSetpoint)
