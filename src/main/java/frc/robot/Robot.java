@@ -31,19 +31,12 @@ public class Robot extends TimedRobot {
     private ArmGravityCompensation compensation;
     private VisionService vision;
     private LedsService leds;
-    private AutoChooser autoChooser;
 
     @Override
     public void robotInit() {
         getInstances();
         setCompressor();
         setDefaultJointsCommands();
-        autoChooser = new AutoChooser(
-                new RootNamespace("auto chooser"),
-                new PlanBWindow(drivetrain).getCommand(), "plan b window",
-                new PlanBEdge(drivetrain).getCommand(), "plan b edge",
-                new SmashAndDash(drivetrain).getCommand(), "smash and dash"
-        );
         firstJoint.configureEncoders();
         secondJoint.configureEncoders();
         vision.setBackLimelightPipeline(VisionService.LimelightPipeline.HIGH_RRT);
