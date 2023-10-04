@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
 import com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain.SparkMaxTankDrivetrain;
+import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
@@ -39,6 +40,8 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
      * Maximum current for the motors. It solved a problem, don't ask me how.
      */
     private static final int CURRENT_LIMIT = 50;
+    private static final int SPARK_MAX_STATUS_FRAME_PERIOD = 10;
+    private static final int PID_SLOT = 0;
 
     private static final int SECONDS_IN_MINUTE = 60;
 
@@ -149,8 +152,8 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
         super.configureLoop(leftPIDSettings, rightPIDSettings, feedForwardSettings, trapezoidProfileSettings);
         configureEncoders();
         setCurrentLimits();
-        leftMaster.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, 10);
-        rightMaster.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, 10);
+        leftMaster.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, SPARK_MAX_STATUS_FRAME_PERIOD);
+        rightMaster.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, SPARK_MAX_STATUS_FRAME_PERIOD);
         rightMaster.setInverted(true);
         prevLeftSetpoint = 0;
         prevRightSetpoint = 0;
@@ -199,11 +202,11 @@ public class Drivetrain extends SparkMaxTankDrivetrain {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         //adds an acceleration feedforward as additional voltage
         leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType(),
-                0, feedForwardSettings.getkS() * Math.signum(leftSetpoint)
-                        + kA.get() * (leftSetpoint - prevLeftSetpoint) / 0.02);
+                PID_SLOT, feedForwardSettings.getkS() * Math.signum(leftSetpoint)
+                        + kA.get() * (leftSetpoint - prevLeftSetpoint) / FeedForwardController.DEFAULT_PERIOD);
         rightMaster.getPIDController().setReference(rightSetpoint, controlMode.getSparkMaxControlType(),
-                0, feedForwardSettings.getkS() * Math.signum(rightSetpoint)
-                        + kA.get() * (rightSetpoint - prevRightSetpoint) / 0.02);
+                PID_SLOT, feedForwardSettings.getkS() * Math.signum(rightSetpoint)
+                        + kA.get() * (rightSetpoint - prevRightSetpoint) / FeedForwardController.DEFAULT_PERIOD);
         prevLeftSetpoint = leftSetpoint;
         prevRightSetpoint = rightSetpoint;
     }

@@ -31,33 +31,16 @@ public class Robot extends TimedRobot {
     private ArmGravityCompensation compensation;
     private VisionService vision;
     private LedsService leds;
-    private AutoChooser autoChooser;
-
-    /**
-     * A command that sets all the motor controllers to coast.
-     */
-    private WrapperCommand userCommand;
 
     @Override
     public void robotInit() {
         getInstances();
         setCompressor();
         setDefaultJointsCommands();
-        autoChooser = new AutoChooser(
-                new RootNamespace("auto chooser"),
-                new PlanBWindow(drivetrain).getCommand(), "plan b window",
-                new PlanBEdge(drivetrain).getCommand(), "plan b edge",
-                new SmashAndDash(drivetrain).getCommand(), "smash and dash"
-        );
         firstJoint.configureEncoders();
         secondJoint.configureEncoders();
         vision.setBackLimelightPipeline(VisionService.LimelightPipeline.HIGH_RRT);
         vision.setFrontLimelightPipeline(VisionService.LimelightPipeline.HIGH_RRT);
-        userCommand = new InstantCommand(() -> {
-            drivetrain.setMode(CANSparkMax.IdleMode.kCoast);
-            firstJoint.setIdleMode(CANSparkMax.IdleMode.kCoast);
-            secondJoint.setIdleMode(CANSparkMax.IdleMode.kCoast);
-        }).ignoringDisable(true);
     }
 
     @Override
@@ -71,9 +54,6 @@ public class Robot extends TimedRobot {
         vision.periodic();
         leds.periodic();
         SmashAndDash.update();
-        if (RobotController.getUserButton()) {
-            userCommand.schedule();
-        }
     }
 
     @Override
