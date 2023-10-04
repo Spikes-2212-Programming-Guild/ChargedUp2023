@@ -49,7 +49,6 @@ public class KeepArmStable extends SequentialCommandGroup {
                                         compensation.configureSecondJointG(firstJoint.getAbsolutePosition(),
                                                 secondJoint.getAbsolutePosition())))
                 ),
-
                 new InstantCommand(compensation::zeroGs)
         );
     }
