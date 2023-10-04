@@ -9,6 +9,9 @@ import frc.robot.subsystems.ArmSecondJoint;
 
 import java.util.function.Supplier;
 
+/**
+ * Moves the second joint via a PID loop where the target position changes linearly over time.
+ */
 public class MoveSecondJoint extends CommandBase {
 
     private final Supplier<Double> duration;
