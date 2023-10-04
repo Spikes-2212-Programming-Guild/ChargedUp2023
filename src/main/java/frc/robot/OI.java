@@ -9,9 +9,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
-import frc.robot.services.ArmGravityCompensation;
-import frc.robot.services.LedsService;
-import frc.robot.services.VisionService;
+import frc.robot.services.*;
 import frc.robot.subsystems.*;
 
 import java.util.function.Supplier;
