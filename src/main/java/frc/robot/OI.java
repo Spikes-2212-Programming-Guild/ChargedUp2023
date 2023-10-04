@@ -28,6 +28,15 @@ public class OI /*GEVALD*/ {
     private double lastMoveValue;
     private double lastRotateValue;
 
+    public static OI getInstance() {
+        if (instance == null) {
+            instance = new OI(Drivetrain.getInstance(), ArmFirstJoint.getInstance(), ArmSecondJoint.getInstance(),
+                    Gripper.getInstance(), ArmGravityCompensation.getInstance(), VisionService.getInstance(),
+                    LedsService.getInstance());
+        }
+        return instance;
+    }
+
     private OI(Drivetrain drivetrain, ArmFirstJoint firstJoint, ArmSecondJoint secondJoint, Gripper gripper,
                ArmGravityCompensation compensation, VisionService visionService, LedsService ledsService) {
         //Moves the first joint forward
@@ -134,15 +143,6 @@ public class OI /*GEVALD*/ {
                             secondJoint.removeDefaultCommand();
                         }),
                         () -> (firstJoint.getDefaultCommand() == null && secondJoint.getDefaultCommand() == null)));
-    }
-
-    public static OI getInstance() {
-        if (instance == null) {
-            instance = new OI(Drivetrain.getInstance(), ArmFirstJoint.getInstance(), ArmSecondJoint.getInstance(),
-                    Gripper.getInstance(), ArmGravityCompensation.getInstance(), VisionService.getInstance(),
-                    LedsService.getInstance());
-        }
-        return instance;
     }
 
     public double getRightY() {
