@@ -19,6 +19,8 @@ import java.util.function.Supplier;
 public class ArmFirstJoint extends SparkMaxGenericSubsystem {
 
     public static final double DEGREES_PER_ROTATION = 360;
+    public static final double MIN_FRONT_DANGER_ZONE = 165;
+    public static final double MAX_BACK_DANGER_ZONE= 5;
 
     /**
      * Ofek said.

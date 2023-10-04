@@ -17,11 +17,13 @@ import java.util.function.Supplier;
 
 public class ArmSecondJoint extends SparkMaxGenericSubsystem {
 
+    public static final int SECONDS_IN_MINUTE = 60;
     public static final double DEGREES_PER_ROTATION = 360;
     public static final double GEAR_RATIO = (1 / 25.0) * (12 / 28.0) * (12 / 28.0);
+    public static final double MAX_FRONT_DANGER_ZONE = 200;
+    public static final double MIN_BACK_DANGER_ZONE = 160;
     private static final double ENCODER_OFFSET = 22;
 
-    public static final int SECONDS_IN_MINUTE = 60;
 
     private static ArmSecondJoint instance;
 
