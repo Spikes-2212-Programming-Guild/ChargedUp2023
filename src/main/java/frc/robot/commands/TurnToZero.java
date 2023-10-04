@@ -14,7 +14,8 @@ public class TurnToZero extends DriveArcadeWithPID {
 
     @Override
     public void initialize() {
-        feedForwardSettings.setkG(() -> (3.1 / RobotController.getBatteryVoltage()) * -Math.signum(((Drivetrain)drivetrain).getYaw()));
+        feedForwardSettings.setkG(() -> (Drivetrain.TURN_KS_VOLTAGE / RobotController.getBatteryVoltage())
+                * -Math.signum(((Drivetrain)drivetrain).getYaw()));
     }
 
     @Override
